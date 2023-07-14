@@ -1,0 +1,536 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>【好玩儿的Docker项目】用腾讯云轻量应用服务器10分钟搭建一个轻量的视频分享网站——Fireshare | 我不是咕咕鸽</title><meta name="author" content="咕咕"><meta name="copyright" content="咕咕"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="前言 因为这个项目的作者自己喜欢打游戏，然后录制了很多精彩的游戏片段，想要和小伙伴们分享炫耀。 但是他又嫌弃上传到YouTube太慢了（YouTube后台会有一个转码的过程，咕咕有一次不小心录制了一个4K的视频，上传之后，YouTube大概花了5个小时才转码完成高清版本  &#x3D; &#x3D;）所以想着有没有一种简单的方法和朋友分享炫耀这些游戏视频，于是诞生了Fireshare。 Fires">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【好玩儿的Docker项目】用腾讯云轻量应用服务器10分钟搭建一个轻量的视频分享网站——Fireshare">
+<meta property="og:url" content="https://blog.laoda.de/archives/docker-compose-install-fireshare/index.html">
+<meta property="og:site_name" content="我不是咕咕鸽">
+<meta property="og:description" content="前言 因为这个项目的作者自己喜欢打游戏，然后录制了很多精彩的游戏片段，想要和小伙伴们分享炫耀。 但是他又嫌弃上传到YouTube太慢了（YouTube后台会有一个转码的过程，咕咕有一次不小心录制了一个4K的视频，上传之后，YouTube大概花了5个小时才转码完成高清版本  &#x3D; &#x3D;）所以想着有没有一种简单的方法和朋友分享炫耀这些游戏视频，于是诞生了Fireshare。 Fires">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.laoda.de/i/2022/05/02/dzx54l_7.webp">
+<meta property="article:published_time" content="2022-08-17T03:14:45.280Z">
+<meta property="article:modified_time" content="2022-08-18T09:23:41.463Z">
+<meta property="article:author" content="咕咕">
+<meta property="article:tag" content="fireshare">
+<meta property="article:tag" content="视频分享">
+<meta property="article:tag" content="视频床">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.laoda.de/i/2022/05/02/dzx54l_7.webp"><link rel="shortcut icon" href="https://img.laoda.de/i/2023/07/13/2dcwxy-0.webp"><link rel="canonical" href="https://blog.laoda.de/archives/docker-compose-install-fireshare/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script async="async" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({
+  google_ad_client: '8920495929686095',
+  enable_page_level_ads: 'true'
+});</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":true,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: {"limitDay":50,"position":"top","messagePrev":"本文自上次更新已经过了","messageNext":"天，若内容或图片失效，请留言反馈。"},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【好玩儿的Docker项目】用腾讯云轻量应用服务器10分钟搭建一个轻量的视频分享网站——Fireshare',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-08-18 17:23:41'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><script async src="https://analytics.laoda.de/script.js" data-website-id="e631177f-7024-44bb-bcc4-5de70d00a512"></script><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="我不是咕咕鸽" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://img.laoda.de/i/2023/07/13/2dcwxy-0.webp" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">215</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">403</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/vps"><i class="fa-fw fas fa-cart-shopping"></i><span> 高性价比VPS</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener external nofollow noreferrer" href="https://vps.laoda.de/"><i class="fa-fw fas fa-bell"></i><span> VPS库存监控</span></a></div><div class="menus_item"><a class="site-page" href="/comments"><i class="fa-fw fas fa-comment"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/buy-me-a-coffee"><i class="fa-fw fas fa-coffee"></i><span> 咖啡名单</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-fire"></i><span> VPS推荐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/tags/%E7%BE%8E%E5%9B%BDVPS/"><i class="fa-fw fas fa-thumbs-up"></i><span> 美国VPS推荐</span></a></li><li><a class="site-page child" href="/tags/%E6%AC%A7%E6%B4%B2VPS/"><i class="fa-fw fas fa-thumbs-up"></i><span> 欧洲VPS推荐</span></a></li><li><a class="site-page child" href="/tags/%E4%BA%9A%E5%A4%AAVPS/"><i class="fa-fw fas fa-thumbs-up"></i><span> 亚太VPS推荐</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-flask"></i><span> 实验室</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://uptime.laoda.de/status/1"><i class="fa-fw fas fa-clock"></i><span> 服务监控</span></a></li><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://analytics.laoda.de/share/qNPxISC0asu7iiuP/%E5%B0%8F%E9%B8%BD%E5%AD%90"><i class="fa-fw fas fa-chart-pie"></i><span> 网站流量</span></a></li><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://status.laoda.de/"><i class="fa-fw fas fa-cloud"></i><span> 咕咕的小鸡们</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-archive"></i><span> 文章归档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/VPS%E6%8E%A8%E8%8D%90/"><i class="fa-fw fas fa-cloud"></i><span> VPS系列</span></a></li><li><a class="site-page child" href="/categories/Docker%E7%B3%BB%E5%88%97/"><i class="fa-fw fas fa-fire-flame-curved"></i><span> Docker系列</span></a></li><li><a class="site-page child" href="/categories/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF/"><i class="fa-fw fas fa-shield"></i><span> 宝塔面板系列</span></a></li><li><a class="site-page child" href="/categories/Docker%E7%B3%BB%E5%88%97/%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA/"><i class="fa-fw fas fa-note-sticky"></i><span> 网站搭建系列</span></a></li><li><a class="site-page child" href="/categories/%E6%9C%89%E7%94%A8%E7%9A%84%E5%B0%8F%E7%9F%A5%E8%AF%86/"><i class="fa-fw fas fa-lightbulb"></i><span> 有用的小知识</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-list"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 文章标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 文章分类</span></a></li><li><a class="site-page child" href="/sitemap.xml"><i class="fa-fw fas fa-sitemap"></i><span> 站点地图</span></a></li><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></li><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://img.gugu.ovh"><i class="fa-fw fas fa-image"></i><span> 公益图床</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于咕咕</span></a></li><li><a class="site-page child" href="/atom.xml"><i class="fa-fw fas fa-rss"></i><span> RSS订阅</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://img.laoda.de/i/2022/05/02/dzx54l_7.webp')"><nav id="nav"><span id="blog-info"><a href="/" title="我不是咕咕鸽"><img class="site-icon" src="https://img.laoda.de/i/2023/07/13/2dcwxy-0.webp"/><span class="site-name">我不是咕咕鸽</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/vps"><i class="fa-fw fas fa-cart-shopping"></i><span> 高性价比VPS</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener external nofollow noreferrer" href="https://vps.laoda.de/"><i class="fa-fw fas fa-bell"></i><span> VPS库存监控</span></a></div><div class="menus_item"><a class="site-page" href="/comments"><i class="fa-fw fas fa-comment"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/buy-me-a-coffee"><i class="fa-fw fas fa-coffee"></i><span> 咖啡名单</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-fire"></i><span> VPS推荐</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/tags/%E7%BE%8E%E5%9B%BDVPS/"><i class="fa-fw fas fa-thumbs-up"></i><span> 美国VPS推荐</span></a></li><li><a class="site-page child" href="/tags/%E6%AC%A7%E6%B4%B2VPS/"><i class="fa-fw fas fa-thumbs-up"></i><span> 欧洲VPS推荐</span></a></li><li><a class="site-page child" href="/tags/%E4%BA%9A%E5%A4%AAVPS/"><i class="fa-fw fas fa-thumbs-up"></i><span> 亚太VPS推荐</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-flask"></i><span> 实验室</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://uptime.laoda.de/status/1"><i class="fa-fw fas fa-clock"></i><span> 服务监控</span></a></li><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://analytics.laoda.de/share/qNPxISC0asu7iiuP/%E5%B0%8F%E9%B8%BD%E5%AD%90"><i class="fa-fw fas fa-chart-pie"></i><span> 网站流量</span></a></li><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://status.laoda.de/"><i class="fa-fw fas fa-cloud"></i><span> 咕咕的小鸡们</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-archive"></i><span> 文章归档</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/VPS%E6%8E%A8%E8%8D%90/"><i class="fa-fw fas fa-cloud"></i><span> VPS系列</span></a></li><li><a class="site-page child" href="/categories/Docker%E7%B3%BB%E5%88%97/"><i class="fa-fw fas fa-fire-flame-curved"></i><span> Docker系列</span></a></li><li><a class="site-page child" href="/categories/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF/"><i class="fa-fw fas fa-shield"></i><span> 宝塔面板系列</span></a></li><li><a class="site-page child" href="/categories/Docker%E7%B3%BB%E5%88%97/%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA/"><i class="fa-fw fas fa-note-sticky"></i><span> 网站搭建系列</span></a></li><li><a class="site-page child" href="/categories/%E6%9C%89%E7%94%A8%E7%9A%84%E5%B0%8F%E7%9F%A5%E8%AF%86/"><i class="fa-fw fas fa-lightbulb"></i><span> 有用的小知识</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-list"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 文章标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 文章分类</span></a></li><li><a class="site-page child" href="/sitemap.xml"><i class="fa-fw fas fa-sitemap"></i><span> 站点地图</span></a></li><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></li><li><a class="site-page child" target="_blank" rel="noopener external nofollow noreferrer" href="https://img.gugu.ovh"><i class="fa-fw fas fa-image"></i><span> 公益图床</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于咕咕</span></a></li><li><a class="site-page child" href="/atom.xml"><i class="fa-fw fas fa-rss"></i><span> RSS订阅</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【好玩儿的Docker项目】用腾讯云轻量应用服务器10分钟搭建一个轻量的视频分享网站——Fireshare</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-17T03:14:45.280Z" title="发表于 2022-08-17 11:14:45">2022-08-17</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-08-18T09:23:41.463Z" title="更新于 2022-08-18 17:23:41">2022-08-18</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Docker%E7%B3%BB%E5%88%97/">Docker系列</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>13分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="【好玩儿的Docker项目】用腾讯云轻量应用服务器10分钟搭建一个轻量的视频分享网站——Fireshare"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><img src="https://img.laoda.de/i/2022/08/16/zkdnaq-2.webp" alt="2d5fd03eadd0984a8456f20a78773d3c.png"></p>
+<p>因为这个项目的作者自己喜欢打游戏，然后录制了很多精彩的游戏片段，想要和小伙伴们<del>分享</del>炫耀。</p>
+<p>但是他又嫌弃上传到YouTube太慢了（YouTube后台会有一个转码的过程，咕咕有一次不小心录制了一个4K的视频，上传之后，YouTube大概花了5个小时才转码完成高清版本  &#x3D; &#x3D;）所以想着有没有一种简单的方法和朋友<del>分享</del>炫耀这些游戏视频，于是诞生了Fireshare。</p>
+<p>Fireshare的目标是提供一个非常简单的方法，让你可以通过一个独特的链接分享你的任何视频。</p>
+<p>我们所要做的就是把视频放在一个文件夹里，而Fireshare会处理剩下的事情。</p>
+<h2 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1. 介绍"></a>1. 介绍</h2><p><img src="https://img.laoda.de/i/2022/08/11/qxfq6x-2.webp" alt="094ed285176637e93ca19f67004af324.png"></p>
+<p>什么是 Fireshare？</p>
+<blockquote>
+<p>Fireshare 可以通过独特的链接分享你的游戏剪辑、视频或其他媒体。你要做的就是把你的视频上传到一个文件夹里，Fireshare 会处理剩下的事情。</p>
+</blockquote>
+<p>官方提供了演示站点：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://v.fireshare.net/#/feed">https://v.fireshare.net/#/feed</a></p>
+<h3 id="1-1-相关地址"><a href="#1-1-相关地址" class="headerlink" title="1.1 相关地址"></a>1.1 相关地址</h3><p>官方Demo：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://v.fireshare.net/#/feed">https://v.fireshare.net/#/feed</a></p>
+<p>文档地址：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/ShaneIsrael/fireshare/wiki/Fireshare-Configurables">https://github.com/ShaneIsrael/fireshare/wiki/Fireshare-Configurables</a></p>
+<p>GitHub地址：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/ShaneIsrael/fireshare">https://github.com/ShaneIsrael/fireshare</a>  (204 Star)</p>
+<p>Docker仓库地址：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/searxng/searxng-docker">https://github.com/searxng/searxng-docker</a></p>
+<h2 id="2-项目展示"><a href="#2-项目展示" class="headerlink" title="2. 项目展示"></a>2. 项目展示</h2><h3 id="2-1-仪表板"><a href="#2-1-仪表板" class="headerlink" title="2.1 仪表板"></a>2.1 仪表板</h3><p>在这里，你可以看到你所有的视频，并编辑它们的细节，如标题、描述以及你是否想让它们显示在公共频道上。</p>
+<p><img src="https://img.laoda.de/i/2022/08/16/zkzys6-2.webp" alt="4d4b6bad822e0ac95aad8a00730f6ffb.png"></p>
+<p>也许卡片式视图不是你的风格，Fireshare也支持列表式视图。</p>
+<p><img src="https://img.laoda.de/i/2022/08/16/zlbgoj-2.webp" alt="b691ad59d49797f1484a95cde6dfbcfc.png"></p>
+<h3 id="2-2-折叠式排序"><a href="#2-2-折叠式排序" class="headerlink" title="2.2 折叠式排序"></a>2.2 折叠式排序</h3><p>可以给视频分类，排序展示。</p>
+<p><img src="https://img.laoda.de/i/2022/08/16/zlcron-2.webp" alt="dac2801550649dcf64539559effd729e.png"></p>
+<h3 id="2-3-上传视频"><a href="#2-3-上传视频" class="headerlink" title="2.3 上传视频"></a>2.3 上传视频</h3><p>可以开放上传，也可以限制只有管理员才能上传。</p>
+<p><img src="https://img.laoda.de/i/2022/08/16/zldvev-2.webp" alt="5c9adfd43a87d44ebc8d38be778bfc36.png"></p>
+<h3 id="2-4-编辑视频细节"><a href="#2-4-编辑视频细节" class="headerlink" title="2.4 编辑视频细节"></a>2.4 编辑视频细节</h3><p>通过点击 “铅笔 “图标，可以进入编辑视频标题和描述。</p>
+<p><img src="https://img.laoda.de/i/2022/08/16/zlf4gi-2.webp" alt="068244c29f7692a3c580ec5c32b4003e.png"></p>
+<h3 id="2-5-视频预览模式"><a href="#2-5-视频预览模式" class="headerlink" title="2.5 视频预览模式"></a>2.5 视频预览模式</h3><p>在公共频道或管理仪表板上打开的视频会在一个模式中显示出来。</p>
+<p>这个模式为我们提供直链和带时间戳的链接分享按钮，以及随机播放到另一个视频的功能。</p>
+<p>作为管理员，我们也可以从这个模态中编辑视频的细节。</p>
+<p><img src="https://img.laoda.de/i/2022/08/16/zlhbsn-2.webp" alt="de823e13d5f0465870876f0d9c151b0c.png"></p>
+<h3 id="2-6-观看页面"><a href="#2-6-观看页面" class="headerlink" title="2.6 观看页面"></a>2.6 观看页面</h3><p>这是小伙伴们在得到一个Fireshare链接时将看到的内容。</p>
+<p><img src="https://img.laoda.de/i/2022/08/16/zlhxws-2.webp" alt="4d41ef787ae8079ca89f0841d68b61a0.png"></p>
+<h3 id="2-7-移动支持"><a href="#2-7-移动支持" class="headerlink" title="2.7 移动支持"></a>2.7 移动支持</h3><p>更喜欢在移动设备上浏览？</p>
+<p>没问题，Fireshare完美适配了移动端。</p>
+<p><img src="https://img.laoda.de/i/2022/08/16/zlkq5x-2.webp" alt="1231d29c5650bbea66e9c7a3a54f979e.png"></p>
+<h3 id="2-8-显示预览链接"><a href="#2-8-显示预览链接" class="headerlink" title="2.8 显示预览链接"></a>2.8 显示预览链接</h3><p>如下图，粘贴链接之后，支持在帖子中显示标题、描述和视频缩略图。</p>
+<p><img src="https://img.laoda.de/i/2022/08/16/zlxpuf-2.webp" alt="3f9d2403a4a32f4146fd213b5294b498.png"></p>
+<h2 id="3-搭建环境"><a href="#3-搭建环境" class="headerlink" title="3. 搭建环境"></a>3. 搭建环境</h2><ul>
+<li>服务器：<del>腾讯香港轻量应用服务器24元&#x2F;月VPS一台</del>本期搭建用的是<a target="_blank" rel="noopener external nofollow noreferrer" href="https://loll.cc/tx">腾讯轻量购买链接</a>的服务器，（最好是选<strong>非大陆（香港）的服务器</strong>）如果是小白刚开始玩的话，还可以购买<a href="https://blog.laoda.de/archives/cheap-vps-racknerd">Racknerd</a>的服务器，最低一年不到100块（不过搭建Docker还是建议选择1G内存以上的机器）（Racknerd服务器介绍：<a href="https://blog.laoda.de/archives/cheap-vps-racknerd">点击查看</a>）</li>
+<li>系统：Debian 10（<a href="https://blog.laoda.de/archives/useful-script#dd%E7%9B%B8%E5%85%B3">DD脚本</a> 非必需DD用原来的系统也OK，之后教程都是用Debian或者Ubuntu搭建～）</li>
+<li>安装好Docker、Docker-compose（<a href="https://blog.laoda.de/archives/hello-docker#5%E5%AE%89%E8%A3%85dockerdocker-compose">相关脚本</a>）</li>
+<li>【非必需但建议】域名一枚，并做好解析到服务器上（<a href="https://blog.laoda.de/archives/namesilo">域名购买、域名解析</a> <a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.bilibili.com/video/BV1Sy4y1k7kZ/">视频教程</a>）</li>
+<li>【非必需】提前安装好宝塔面板海外版本aapanel，并安装好Nginx（<a target="_blank" rel="noopener external nofollow noreferrer" href="https://forum.aapanel.com/d/9-aapanel-linux-panel-6812-installation-tutorial">安装地址</a>）</li>
+<li>【非必需本教程选用】安装好Nginx Proxy Manager（<a href="https://blog.laoda.de/archives/nginxproxymanager">相关教程</a>）</li>
+</ul>
+<blockquote>
+<p>服务器要求：不是非常高，能搭建Docker即可，建议1G以上。</p>
+</blockquote>
+<h2 id="4-搭建视频"><a href="#4-搭建视频" class="headerlink" title="4. 搭建视频"></a>4. 搭建视频</h2><p>YouTube：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://youtu.be/isocgoLqKos">https://youtu.be/isocgoLqKos</a></p>
+<p>哔哩哔哩【高清版本可以点击去吐槽到B站观看】：<joe-bilibili bvid="BV1tV4y1s7ho"></joe-bilibili></p>
+<h2 id="5-搭建方式"><a href="#5-搭建方式" class="headerlink" title="5. 搭建方式"></a>5. 搭建方式</h2><h3 id="安装系统（腾讯云轻量应用服务器）"><a href="#安装系统（腾讯云轻量应用服务器）" class="headerlink" title="安装系统（腾讯云轻量应用服务器）"></a>安装系统（腾讯云轻量应用服务器）</h3><p><img src="https://img.laoda.de/i/2022/08/16/zlyhcz-2.webp" alt="e59713fba8726d3cb55ae11bca83fe3c.png"></p>
+<p>腾讯云轻量服务器最大的特点就是“轻量”，相比CVM，更适合小白上手，这边我们之间选择Docker基础镜像，就可以省去后面安装Docker的步骤（如果你非要用国内的服务器，这边装的Docker镜像还会帮你配置好国内镜像源，让你加速访问docker镜像资源）。</p>
+<h3 id="登陆（腾讯云轻量应用服务器）"><a href="#登陆（腾讯云轻量应用服务器）" class="headerlink" title="登陆（腾讯云轻量应用服务器）"></a>登陆（腾讯云轻量应用服务器）</h3><p><img src="https://img.laoda.de/i/2022/08/16/zlzlj7-2.webp" alt="2722040ee311eb4a9ebf2a4945bf38f4.png"></p>
+<p><img src="https://img.laoda.de/i/2022/08/16/zm0gv8-2.webp" alt="c0b5d360053746c4095d592967ee401f.png"></p>
+<p><img src="https://img.laoda.de/i/2022/08/16/zm1vqw-2.webp" alt="e0ba858f021b846ad0abc27acf5008c2.png"></p>
+<h3 id="5-1-服务器前期配置"><a href="#5-1-服务器前期配置" class="headerlink" title="5.1 服务器前期配置"></a>5.1 服务器前期配置</h3><p>服务器初始设置，参考：</p>
+<p><a href="https://blog.laoda.de/archives/vps-script"><strong>新买了一台服务器“必须”要做的6件小事</strong></a></p>
+<p><a href="https://blog.laoda.de/archives/how-to-secure-a-linux-server"><strong>保护好你的小鸡！保姆级服务器安全教程！</strong></a></p>
+<p>这边由于我们用的是腾讯云轻量应用服务器，系统默认就帮我们创建了名字是lighthouse的用户，系统后台也有防火墙（默认就开了几个常用的端口）</p>
+<p>对小白用户来说，可以不用再去管繁琐的服务器安全的配置，大大降低了服务器防护的门槛。</p>
+<p><a href="https://blog.laoda.de/archives/hello-docker">【Docker系列】不用宝塔面板，小白一样可以玩转VPS服务器！</a></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo -i <span class="comment"># 切换到root用户</span></span><br><span class="line"></span><br><span class="line">apt update -y  <span class="comment"># 升级packages</span></span><br><span class="line"></span><br><span class="line">apt install wget curl sudo vim git -y  <span class="comment"># Debian系统比较干净，安装常用的软件</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+<blockquote>
+<p>注意：VPS的内存如果过小，建议设置一下SWAP，一般为内存的1-1.5倍即可，可以让系统运行更流畅！</p>
+</blockquote>
+<p>设置SWAP可以用脚本:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget -O box.sh https://raw.githubusercontent.com/BlueSkyXN/SKY-BOX/main/box.sh &amp;&amp; <span class="built_in">chmod</span> +x box.sh &amp;&amp; clear &amp;&amp; ./box.sh</span><br></pre></td></tr></table></figure>
+
+<img src="https://img.laoda.de/i/2022/05/28/uoikkd-0.webp" alt="image-20220528185512488" style="zoom:50%;" />
+
+<p>选择<code>18</code>，然后输入你想要扩容的数值即可。</p>
+<img src="https://img.laoda.de/i/2022/05/28/up2dkf-0.webp" alt="image-20220528185604586" style="zoom:50%;" />
+
+
+
+<p>使用腾讯云轻量应用服务器的小伙伴可以直接跳到5.2.4</p>
+<h3 id="5-2-安装Docker（使用腾讯云轻量应用服务器可跳过这一部分）"><a href="#5-2-安装Docker（使用腾讯云轻量应用服务器可跳过这一部分）" class="headerlink" title="5.2 安装Docker（使用腾讯云轻量应用服务器可跳过这一部分）"></a>5.2 安装Docker（使用腾讯云轻量应用服务器可跳过这一部分）</h3><h4 id="5-2-1-非大陆服务器Docker安装"><a href="#5-2-1-非大陆服务器Docker安装" class="headerlink" title="5.2.1 非大陆服务器Docker安装"></a>5.2.1 <strong>非大陆服务器Docker安装</strong></h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget -qO- get.docker.com | bash</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker -v  <span class="comment">#查看docker版本</span></span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> docker  <span class="comment"># 设置开机自动启动</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>修改Docker配置（可选）（来自<a target="_blank" rel="noopener external nofollow noreferrer" href="https://u.sb/debian-install-docker/">烧饼博客</a>）</strong></p>
+<p>以下配置会增加一段自定义内网 IPv6 地址，开启容器的 IPv6 功能，以及限制日志文件大小，防止 Docker 日志塞满硬盘（泪的教训）：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cat</span> &gt; /etc/docker/daemon.json &lt;&lt;<span class="string">EOF</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">    &quot;log-driver&quot;: &quot;json-file&quot;,</span></span><br><span class="line"><span class="string">    &quot;log-opts&quot;: &#123;</span></span><br><span class="line"><span class="string">        &quot;max-size&quot;: &quot;20m&quot;,</span></span><br><span class="line"><span class="string">        &quot;max-file&quot;: &quot;3&quot;</span></span><br><span class="line"><span class="string">    &#125;,</span></span><br><span class="line"><span class="string">    &quot;ipv6&quot;: true,</span></span><br><span class="line"><span class="string">    &quot;fixed-cidr-v6&quot;: &quot;fd00:dead:beef:c0::/80&quot;,</span></span><br><span class="line"><span class="string">    &quot;experimental&quot;:true,</span></span><br><span class="line"><span class="string">    &quot;ip6tables&quot;:true</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">EOF</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>然后重启 Docker 服务：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl restart docker</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="5-2-2-非大陆服务器Docker-compose安装"><a href="#5-2-2-非大陆服务器Docker-compose安装" class="headerlink" title="5.2.2 非大陆服务器Docker-compose安装"></a>5.2.2 <strong>非大陆服务器Docker-compose安装</strong></h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo curl -L <span class="string">&quot;https://github.com/docker/compose/releases/download/1.29.2/docker-compose-<span class="subst">$(uname -s)</span>-<span class="subst">$(uname -m)</span>&quot;</span> -o /usr/local/bin/docker-compose</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo <span class="built_in">chmod</span> +x /usr/local/bin/docker-compose</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker-compose --version  <span class="comment">#查看docker-compose版本</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h4 id="5-2-3-国内服务器安装docker"><a href="#5-2-3-国内服务器安装docker" class="headerlink" title="5.2.3 国内服务器安装docker"></a>5.2.3 <strong>国内服务器安装docker</strong></h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">curl -sSL https://get.daocloud.io/docker | sh</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker -v  <span class="comment">#查看docker版本</span></span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> docker  <span class="comment"># 设置开机自动启动</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>修改Docker配置（可选）（来自<a target="_blank" rel="noopener external nofollow noreferrer" href="https://u.sb/debian-install-docker/">烧饼博客</a>）</strong></p>
+<p>以下配置会增加一段自定义内网 IPv6 地址，开启容器的 IPv6 功能，以及限制日志文件大小，防止 Docker 日志塞满硬盘（泪的教训）：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cat</span> &gt; /etc/docker/daemon.json &lt;&lt;<span class="string">EOF</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">    &quot;log-driver&quot;: &quot;json-file&quot;,</span></span><br><span class="line"><span class="string">    &quot;log-opts&quot;: &#123;</span></span><br><span class="line"><span class="string">        &quot;max-size&quot;: &quot;20m&quot;,</span></span><br><span class="line"><span class="string">        &quot;max-file&quot;: &quot;3&quot;</span></span><br><span class="line"><span class="string">    &#125;,</span></span><br><span class="line"><span class="string">    &quot;ipv6&quot;: true,</span></span><br><span class="line"><span class="string">    &quot;fixed-cidr-v6&quot;: &quot;fd00:dead:beef:c0::/80&quot;,</span></span><br><span class="line"><span class="string">    &quot;experimental&quot;:true,</span></span><br><span class="line"><span class="string">    &quot;ip6tables&quot;:true</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">EOF</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>然后重启 Docker 服务：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl restart docker</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="5-2-4-国内服务器安装docker-compose"><a href="#5-2-4-国内服务器安装docker-compose" class="headerlink" title="5.2.4 国内服务器安装docker-compose"></a>5.2.4 <strong>国内服务器安装docker-compose</strong></h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">curl -L https://get.daocloud.io/docker/compose/releases/download/v2.1.1/docker-compose-`<span class="built_in">uname</span> -s`-`<span class="built_in">uname</span> -m` &gt; /usr/local/bin/docker-compose</span><br><span class="line"></span><br><span class="line"><span class="built_in">chmod</span> +x /usr/local/bin/docker-compose</span><br><span class="line"></span><br><span class="line">docker-compose --version  <span class="comment">#查看docker-compose版本</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="5-3-安装NginxProxyManager"><a href="#5-3-安装NginxProxyManager" class="headerlink" title="5.3 安装NginxProxyManager"></a>5.3 安装NginxProxyManager</h3><p>参考这边的内容：<a href="https://blog.laoda.de/archives/nginxproxymanager">https://blog.laoda.de/archives/nginxproxymanager</a></p>
+<h3 id="5-4-创建安装目录及docker-compose文件"><a href="#5-4-创建安装目录及docker-compose文件" class="headerlink" title="5.4 创建安装目录及docker-compose文件"></a>5.4 创建安装目录及docker-compose文件</h3><p>创建一下安装的目录：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">sudo -i</span><br><span class="line"></span><br><span class="line"><span class="built_in">mkdir</span> -p /root/data/docker_data/fireshare</span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> /root/data/docker_data/fireshare</span><br><span class="line"></span><br><span class="line">vim docker-compose.yaml</span><br></pre></td></tr></table></figure>
+
+
+
+<p>输入<code>i</code>，然后写入下面的文件：</p>
+<p><img src="https://img.laoda.de/i/2022/08/16/zm4lgk-2.webp" alt="8020cae65dd0cf85762475a9aea7c5bf.png"></p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3.7&#x27;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">fireshare:</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">fireshare</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">shaneisrael/fireshare:latest</span>    <span class="comment"># latest表示最新版本</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;8080:80&quot;</span>        <span class="comment"># 冒号左边的端口可以自己修改成服务器未占用的端口，冒号右边不要改！</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./data:/data</span>         <span class="comment"># 冒号左边的路径可以自己修改（./代表当前目录下），冒号右边不要改！</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./processed:/processed</span> <span class="comment"># 同上</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./videos:/videos</span>  <span class="comment"># 同上</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">ADMIN_USERNAME=admin</span>    <span class="comment"># 自己设置一个用户名</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">ADMIN_PASSWORD=admin</span>    <span class="comment"># 自己修改一个密码</span></span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>Fireshare需要3个卷挂载。</p>
+<p><code>/data</code> - fireshare用来保存其内部数据库的目录<br><code>/processed</code> - 用来保存由fireshare创建的与你的视频有关的元数据的目录（海报，元数据信息）。<br><code>/videos</code> - fireshare将观察和扫描任何视频的目录。<br>如果你有你所有的游戏片段存储在一个文件夹<code>my_game_clips</code>中，那么在你的docker compose文件（或docker运行命令）中，你将需要把该文件夹卷装到fireshare观看的<code>/videos</code>文件夹。</p>
+</blockquote>
+<p>输入<code>:wq</code>保存退出。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 新建文件夹 fireshare 和 子目录</span></span><br><span class="line"><span class="built_in">mkdir</span> -p /root/data/docker_data/fireshare/&#123;data,processed,videos&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 进入目录</span></span><br><span class="line"><span class="built_in">cd</span> /root/data/docker_data/fireshare</span><br><span class="line"></span><br><span class="line"><span class="built_in">ls</span> -al</span><br><span class="line"></span><br><span class="line"><span class="comment"># 确保 docker-compose.yml 在当前目录下</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img.laoda.de/i/2022/08/16/zmir31-2.webp" alt="8fa7912536dc5c31ad072ac5fdb1afd7.png"></p>
+<h3 id="5-5-打开服务器防火墙并访问网页"><a href="#5-5-打开服务器防火墙并访问网页" class="headerlink" title="5.5 打开服务器防火墙并访问网页"></a>5.5 打开服务器防火墙并访问网页</h3><p>打开防火墙的端口<code>8080</code></p>
+<p>腾讯云打开方法如下：</p>
+<p><img src="https://img.laoda.de/i/2022/06/30/zlio5h-2.webp" alt="image-20220630215240864"></p>
+<p><img src="https://img.laoda.de/i/2022/06/30/10h3dqt-2.webp" alt="image-20220630220546335"></p>
+<p>这边我们填<code>8080</code> 确定即可（如果你在dockercompose文件里换了8081，这边就需要填8081，以此类推）</p>
+<p><img src="https://img.laoda.de/i/2022/08/16/zmkg80-2.webp" alt="cafbde32934457a4fa98b65aa09d4489.png"></p>
+<p>查看端口是否被占用（以<code>8080</code>为例），输入：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">lsof -i:8080  <span class="comment">#查看8080端口是否被占用，如果被占用，重新自定义一个端口</span></span><br></pre></td></tr></table></figure>
+
+<p>如果啥也没出现：</p>
+<p><img src="https://img.laoda.de/i/2022/08/16/zmp49b-2.webp" alt="3653370825d7984db0a666c30cff3f4e.png"></p>
+<p>表示端口未被占用，我们可以继续下面的操作了～</p>
+<p>如果出现：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">-bash: lsof: <span class="built_in">command</span> not found</span><br></pre></td></tr></table></figure>
+
+<p>运行：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">apt install lsof  <span class="comment">#安装lsof</span></span><br></pre></td></tr></table></figure>
+
+<p>如果端口没有被占用（被占用了就修改一下端口，比如改成8081，注意dockercompose和防火墙都要改），我们接着可以运行：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /root/data/docker_data/fireshare</span><br><span class="line"></span><br><span class="line">docker-compose up -d  </span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img.laoda.de/i/2022/08/16/zmqg51-2.webp" alt="17d7b69871963e1b943ee85b6baf0b91.png"></p>
+<p>耐心等待，等出现：</p>
+<p><img src="https://img.laoda.de/i/2022/08/16/zmrd9v-2.webp" alt="724285de7cbd28b1bc7382cd3868c919.png"></p>
+<p>我们就可以输入<code>http://ip:8080</code>访问了。</p>
+<blockquote>
+<p><strong>注意：</strong></p>
+<p>1、不知道服务器IP，可以直接在命令行输入：<code>curl ip.sb</code>，会显示当前服务器的IP。</p>
+<p>2、遇到访问不了的情况，请再次检查在宝塔面板的防火墙和服务商的后台防火墙是否打开对应了端口。</p>
+</blockquote>
+<p><img src="https://img.laoda.de/i/2022/08/16/zn1n5t-2.webp" alt="708cdb63bc979d18440c3a0c9fa26210.png"></p>
+<p>因为我们后续想要分享给别人，IP+端口太不优雅了，咕咕建议大家还是搞一个域名，容易记，看起来也更正规一点。这样可以做https，会让网页更安全。（非要IP+端口访问的，可以直接跳到5.6，并且跳过<code>6. 反向代理</code>部分）</p>
+<p>而且namesilo上面xyz后缀的域名一年就7块钱，可以年抛。</p>
+<p>如果想要长期使用，还是建议买com后缀的域名，更加正规一些，可以输入<code>laodade</code>来获得1美元的优惠（不知道现在还有没有）</p>
+<p>namesilo自带隐私保护，咕咕一直在用这家，价格也是这些注册商里面比较低的，关键是他家不像其他家域名注册商，没有七七八八的套路！（就是后台界面有些<del>丑</del>古老 &#x3D; &#x3D;）</p>
+<p><a href="https://blog.laoda.de/archives/namesilo">【域名购买】Namesilo优惠码和域名解析教程（附带服务器购买推荐和注意事项）</a></p>
+<p>我们接着往下看！</p>
+<h3 id="5-6-更新"><a href="#5-6-更新" class="headerlink" title="5.6 更新"></a>5.6 更新</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cp</span> -r /root/data/docker_data/fireshare /root/data/docker_data/fireshare.archive  <span class="comment"># 万事先备份，以防万一</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> /root/data/docker_data/fireshare  <span class="comment"># 进入docker-compose所在的文件夹</span></span><br><span class="line"></span><br><span class="line">docker-compose pull    <span class="comment"># 拉取最新的镜像</span></span><br><span class="line"></span><br><span class="line">docker-compose up -d   <span class="comment"># 重新更新当前镜像</span></span><br></pre></td></tr></table></figure>
+
+<p>利用Docker-compose搭建的应用，更新非常容易～</p>
+<h3 id="5-7-卸载"><a href="#5-7-卸载" class="headerlink" title="5.7 卸载"></a>5.7 卸载</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /root/data/docker_data/fireshare  <span class="comment"># 进入docker-compose所在的文件夹</span></span><br><span class="line"></span><br><span class="line">docker-compose down    <span class="comment"># 停止容器，此时不会删除映射到本地的数据</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">rm</span> -rf /root/data/docker_data/fireshare  <span class="comment"># 完全删除映射到本地的数据</span></span><br></pre></td></tr></table></figure>
+
+<p>可以卸载地很干净。</p>
+<h2 id="6-反向代理"><a href="#6-反向代理" class="headerlink" title="6. 反向代理"></a>6. 反向代理</h2><h3 id="6-1-利用Nginx-Proxy-Manager"><a href="#6-1-利用Nginx-Proxy-Manager" class="headerlink" title="6.1 利用Nginx Proxy Manager"></a>6.1 利用Nginx Proxy Manager</h3><p>在添加反向代理之前，确保你已经完成了域名解析，不会的可以看这个：<strong>域名一枚，并做好解析到服务器上</strong>（<a href="https://blog.laoda.de/archives/namesilo">域名购买、域名解析</a> <a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.bilibili.com/video/BV1Sy4y1k7kZ/">视频教程</a>）</p>
+<p><img src="https://img.laoda.de/i/2022/08/16/zn3bkr-2.webp" alt="054215cf70ff4b544dfbf48638da380c.png"></p>
+<p>之后，登陆Nginx Proxy Manager（不会的看这个：<strong>安装Nginx Proxy Manager</strong>（<a href="https://blog.laoda.de/archives/nginxproxymanager">相关教程</a>））</p>
+<blockquote>
+<p><strong>注意：</strong></p>
+<p>Nginx Proxy Manager（以下简称NPM）会用到<code>80</code>、<code>443</code>端口，所以本机不能占用（比如原来就有Nginx）</p>
+</blockquote>
+<p>直接丢几张图：</p>
+<img src="https://img.laoda.de/i/2022/05/02/kfes4s_7.webp" alt="image-20220502123517401" style="zoom:50%;" />
+
+
+
+<img src="https://img.laoda.de/i/2022/08/16/zn6o3e-2.webp" alt="041c6dacbfe151437ab1decb101aa154.png" style="zoom:50%;" />
+
+
+<blockquote>
+<p> 注意填写对应的<code>域名</code>、<code>IP</code>和<code>端口</code>，按文章来的话，应该是<code>8080</code></p>
+</blockquote>
+<p><strong>IP填写：</strong></p>
+<p>如果Nginx Proxy Manager和Fireshare在同一台服务器上，可以在终端输入：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ip addr show docker0</span><br></pre></td></tr></table></figure>
+
+<p>查看对应的Docker容器内部IP。</p>
+<p>否则直接填<code>cryptgeon所在的服务器IP</code>就行。</p>
+<img src="https://img.laoda.de/i/2022/04/03/h9azjx_7.webp" alt="image-20220403104353185" style="zoom:50%;" />
+
+
+
+<p>再次打开，勾选这些：</p>
+<img src="https://img.laoda.de/i/2022/07/28/z2gjif-2.webp" alt="image-20220728212042482" style="zoom:50%;" />
+
+
+
+
+
+<p>然后就可以用域名来安装访问了。</p>
+<p><img src="https://img.laoda.de/i/2022/08/16/zn9v5x-2.webp" alt="4dc09acf521df22bc05e6d7938278cc2.png"></p>
+<h2 id="7-使用教程"><a href="#7-使用教程" class="headerlink" title="7. 使用教程"></a>7. 使用教程</h2><h3 id="7-1-安装和配置"><a href="#7-1-安装和配置" class="headerlink" title="7.1 安装和配置"></a>7.1 安装和配置</h3><p>见咕咕的视频。</p>
+<p>点<code> login</code> 出现登录界面</p>
+<p>默认用户：<code>admin</code>，密码为 <code>ADMIN_PASSWORD</code> 设置的值：</p>
+<p><img src="https://img.laoda.de/i/2022/08/16/zn9rud-2.webp" alt="56ff1c66b74021b96f69019301c90e66.png"></p>
+<p>登录成功之后会看到多了<code>Scan Library</code>按钮</p>
+<p><img src="https://img.laoda.de/i/2022/08/16/znb88e-2.webp" alt="b36c13a2c95d239eb74624d4f4ef5cff.png"></p>
+<p>上传视频试试，这边我们利用filebrowser来上传视频。</p>
+<p>具体操作是：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p /root/data/docker_data/filebrowser</span><br><span class="line"></span><br><span class="line">docker run -d -v /root/data/docker_data/fireshare/videos:/srv -v /root/data/docker_data/filebrowser/filebrowserconfig.json:/etc/config.json -v /root/data/docker_data/filebrowser/database.db:/etc/database.db --name fireshare_browser -p 8002:80 filebrowser/filebrowser</span><br></pre></td></tr></table></figure>
+
+
+
+<p>通过浏览器访问，默认账号密码：<code>admin</code></p>
+<p>同样记得在腾讯云后台打开<code>8002</code>端口</p>
+<p>上传视频：</p>
+<p><img src="https://img.laoda.de/i/2022/08/16/znctcs-2.webp" alt="1fc58a1bcd6abf0b94fe66c7aad99bf6.png"></p>
+<p>接下来就可以通过 <code>Scan Library</code> 扫描视频了</p>
+<p>第一次会有个初始化的过程</p>
+<p><img src="https://img.laoda.de/i/2022/08/16/znd6bn-2.webp" alt="6ccdce731e52bda51ffce486cc7e04f8.png"></p>
+<p>扫描完成后就能看到了</p>
+<p><img src="https://img.laoda.de/i/2022/08/16/znomzh-2.webp" alt="2746cb16b7f315cf85372364192b24d4.png"></p>
+<p>如果看不到可以刷新一下页面，还可以切换视图：</p>
+<p><img src="https://img.laoda.de/i/2022/08/16/znrrnf-2.webp" alt="2a862344360a595de796a04a250fa685.png"></p>
+<p>点击开始播放</p>
+<p><img src="https://img.laoda.de/i/2022/08/16/znq977-2.webp" alt="69614caeff544808098baca68f38d916.png"></p>
+<blockquote>
+<p>视频播放界面暂停，然后按 ESC 键可以回到主界面</p>
+</blockquote>
+<p>点复制链接按钮，可以获取本视频的地址，类似这样：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://v.gugu.ge/w/0f148672afa6fa5ac56341ef4a676b95">https://v.gugu.ge/w/0f148672afa6fa5ac56341ef4a676b95</a></p>
+<p>所以如果你要分享给别人，需要先通过反代，实现域名访问才行:</p>
+<p><img src="https://img.laoda.de/i/2022/08/16/10j9gz4-2.webp" alt="image-20220816220910285"></p>
+<p>加入了 <code>Public feed</code> 的视频，不需要登录就能看到。</p>
+<p><img src="https://img.laoda.de/i/2022/08/16/10itptd-2.webp" alt="image-20220816220834454"></p>
+<h2 id="8-Q-A"><a href="#8-Q-A" class="headerlink" title="8. Q&amp;A"></a>8. Q&amp;A</h2><h3 id="8-1-播放问题"><a href="#8-1-播放问题" class="headerlink" title="8.1 播放问题"></a>8.1 播放问题</h3><p>如果你遇到了播放问题，可能有很多原因造成的，以下这些是最常见的原因。</p>
+<h4 id="文件大小"><a href="#文件大小" class="headerlink" title="文件大小"></a>文件大小</h4><p>建议压缩视频，可以提升观看者的浏览体验。</p>
+<h4 id="上传速度"><a href="#上传速度" class="headerlink" title="上传速度"></a>上传速度</h4><p>服务器的上传速度很重要，如果上传速度慢，可以考虑压缩一下视频。</p>
+<h4 id="浏览器"><a href="#浏览器" class="headerlink" title="浏览器"></a>浏览器</h4><p>在测试中，注意到Firefox在播放非常大的文件时很吃力，然而Chome和Edge似乎没有同样的问题。</p>
+<h4 id="不支持的文件类型"><a href="#不支持的文件类型" class="headerlink" title="不支持的文件类型"></a>不支持的文件类型</h4><p>目前，Fireshare只支持MP4，MOV和WEBM文件。</p>
+<p>建议在可能的情况下使用MP4，而MOV是支持的，测试发现，一些MOV文件播放没有问题，一些会不支持。如果你的MOV文件不能播放，请考虑用Handbrake等工具将其转码为MP4文件。</p>
+<h4 id="上传问题"><a href="#上传问题" class="headerlink" title="上传问题"></a>上传问题</h4><p>上传问题通常是由把fireshare放在某种反向代理（如nginx）后面引起的。在默认情况下，nginx对你的上传大小有限制。如果你使用nginx，你可能需要添加这两行：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">client_max_body_size 0;</span><br><span class="line">proxy_read_timeout 999999s;</span><br></pre></td></tr></table></figure>
+
+<p>这些设置只在Nginx上有效。将<code>client_max_body_size</code>设置为<code>0</code>，就默认允许任何大小的上传。</p>
+<p><img src="https://img.laoda.de/i/2022/08/16/10ne8e2-2.webp" alt="image-20220816221604726"></p>
+<p>我们还增加了超时限制，这样连接就不会超时了。如果你没有使用nginx，请自行搜索方法。</p>
+<h2 id="9-结尾"><a href="#9-结尾" class="headerlink" title="9. 结尾"></a>9. 结尾</h2><p>祝大家用得开心，有问题可以去GitHub提<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/ShaneIsrael/fireshare/issues">Issues</a>，也可以在评论区互相交流探讨。</p>
+<p>同时，有能力给项目做贡献的同学，也欢迎积极加入到<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/ShaneIsrael/fireshare">项目</a>中来，贡献自己的一份力量！</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/ShaneIsrael/fireshare">https://github.com/ShaneIsrael/fireshare</a><br><a target="_blank" rel="noopener external nofollow noreferrer" href="https://laosu.ml/2022/07/22/%E9%80%82%E5%90%88%E7%9F%AD%E8%A7%86%E9%A2%91%E5%88%86%E4%BA%AB%E7%9A%84Fireshare/">https://laosu.ml/2022/07/22/%E9%80%82%E5%90%88%E7%9F%AD%E8%A7%86%E9%A2%91%E5%88%86%E4%BA%AB%E7%9A%84Fireshare/</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://blog.laoda.de">咕咕</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://blog.laoda.de/archives/docker-compose-install-fireshare/">https://blog.laoda.de/archives/docker-compose-install-fireshare/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.laoda.de" target="_blank">我不是咕咕鸽</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/fireshare/">fireshare</a><a class="post-meta__tags" href="/tags/%E8%A7%86%E9%A2%91%E5%88%86%E4%BA%AB/">视频分享</a><a class="post-meta__tags" href="/tags/%E8%A7%86%E9%A2%91%E5%BA%8A/">视频床</a></div><div class="post_share"><div class="social-share" data-image="https://img.laoda.de/i/2022/05/02/dzx54l_7.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://gao.ee/wechatpay" rel="external nofollow noreferrer" target="_blank"><img class="post-qr-code-img" src="https://gao.ee/wechatpay" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://gao.ee/alipay" rel="external nofollow noreferrer" target="_blank"><img class="post-qr-code-img" src="https://gao.ee/alipay" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><div class="ads-wrap"><a href="/archives/vps-lcayun" target="_blank"><img src="https://img.laoda.de/i/2023/02/27/zj36hf-0.gif" style="max-width:100%; height:auto;"></a></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/archives/docker-install-memos/" title="【好玩儿的Docker项目】10分钟搭建一个碎片化知识卡片管理工具——Memos"><img class="cover" src="https://img.laoda.de/i/2022/05/02/dzx54l_7.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">【好玩儿的Docker项目】10分钟搭建一个碎片化知识卡片管理工具——Memos</div></div></a></div><div class="next-post pull-right"><a href="/archives/try-cloudflare-free-15-year-ssl-certificate/" title="网站SSL证书自动续期又又又失败了？试试CloudFlare的免费证书，15年有效期！"><img class="cover" src="https://img.laoda.de/i/2022/05/02/dzx54l_7.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">网站SSL证书自动续期又又又失败了？试试CloudFlare的免费证书，15年有效期！</div></div></a></div></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://img.laoda.de/i/2023/07/13/2dcwxy-0.webp" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">咕咕</div><div class="author-info__description">服务器折腾不完全指南，定期分享一些好玩的东西，不定期记录生活。</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">215</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">403</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://t.me/laodade" rel="external nofollow noreferrer" target="_blank" title=""><i class="fab fa-telegram"></i></a><a class="social-icon" href="https://www.youtube.com/@guguge" rel="external nofollow noreferrer" target="_blank" title=""><i class="fab fa-youtube"></i></a><a class="social-icon" href="https://space.bilibili.com/19956596" rel="external nofollow noreferrer" target="_blank" title=""><i class="fas fa-tv"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title=""><i class="fas fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">博客这俩天遇到了前所未有的坎坷，现在只好先放静态博客了 :(</div></div><div class="card-widget"><div class="item-headline"><i class="fas fa-server"></i><span>高性价比服务器</span></div><div class="item-content"><a href="https://blog.laoda.de/archives/vps-racknerd/" target="_blank"> <img src="https://loll.cc/rnbanner" alt="高性价比服务器racknerd" style="width:100%; height:auto;"> </a> <a href="https://blog.laoda.de/archives/vps-cloudcone/" target="_blank"> <img src="https://loll.cc/ccpic" alt="高性价比服务器cloudcone" style="width:100%; height:auto;"> </a> </div></div><div class="card-widget"><div class="item-headline"><i class="fas fa-credit-card"></i><span>OneKey虚拟卡(可开ChatGPT Plus)</span></div><div class="item-content"><a href="https://blog.laoda.de/archives/onekey-card-tutorial" target="_blank"> <img src="https://gao.ee/pic-onekey" alt="点击跳转的图片" style="width:100%; height:auto;"> </a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BB%8B%E7%BB%8D"><span class="toc-text">1. 介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E7%9B%B8%E5%85%B3%E5%9C%B0%E5%9D%80"><span class="toc-text">1.1 相关地址</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E9%A1%B9%E7%9B%AE%E5%B1%95%E7%A4%BA"><span class="toc-text">2. 项目展示</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E4%BB%AA%E8%A1%A8%E6%9D%BF"><span class="toc-text">2.1 仪表板</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E6%8A%98%E5%8F%A0%E5%BC%8F%E6%8E%92%E5%BA%8F"><span class="toc-text">2.2 折叠式排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E4%B8%8A%E4%BC%A0%E8%A7%86%E9%A2%91"><span class="toc-text">2.3 上传视频</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-%E7%BC%96%E8%BE%91%E8%A7%86%E9%A2%91%E7%BB%86%E8%8A%82"><span class="toc-text">2.4 编辑视频细节</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-%E8%A7%86%E9%A2%91%E9%A2%84%E8%A7%88%E6%A8%A1%E5%BC%8F"><span class="toc-text">2.5 视频预览模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-6-%E8%A7%82%E7%9C%8B%E9%A1%B5%E9%9D%A2"><span class="toc-text">2.6 观看页面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-7-%E7%A7%BB%E5%8A%A8%E6%94%AF%E6%8C%81"><span class="toc-text">2.7 移动支持</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-8-%E6%98%BE%E7%A4%BA%E9%A2%84%E8%A7%88%E9%93%BE%E6%8E%A5"><span class="toc-text">2.8 显示预览链接</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83"><span class="toc-text">3. 搭建环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%90%AD%E5%BB%BA%E8%A7%86%E9%A2%91"><span class="toc-text">4. 搭建视频</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E6%90%AD%E5%BB%BA%E6%96%B9%E5%BC%8F"><span class="toc-text">5. 搭建方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E7%B3%BB%E7%BB%9F%EF%BC%88%E8%85%BE%E8%AE%AF%E4%BA%91%E8%BD%BB%E9%87%8F%E5%BA%94%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%89"><span class="toc-text">安装系统（腾讯云轻量应用服务器）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%99%BB%E9%99%86%EF%BC%88%E8%85%BE%E8%AE%AF%E4%BA%91%E8%BD%BB%E9%87%8F%E5%BA%94%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%89"><span class="toc-text">登陆（腾讯云轻量应用服务器）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%89%8D%E6%9C%9F%E9%85%8D%E7%BD%AE"><span class="toc-text">5.1 服务器前期配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-%E5%AE%89%E8%A3%85Docker%EF%BC%88%E4%BD%BF%E7%94%A8%E8%85%BE%E8%AE%AF%E4%BA%91%E8%BD%BB%E9%87%8F%E5%BA%94%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8F%AF%E8%B7%B3%E8%BF%87%E8%BF%99%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%89"><span class="toc-text">5.2 安装Docker（使用腾讯云轻量应用服务器可跳过这一部分）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-1-%E9%9D%9E%E5%A4%A7%E9%99%86%E6%9C%8D%E5%8A%A1%E5%99%A8Docker%E5%AE%89%E8%A3%85"><span class="toc-text">5.2.1 非大陆服务器Docker安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-2-%E9%9D%9E%E5%A4%A7%E9%99%86%E6%9C%8D%E5%8A%A1%E5%99%A8Docker-compose%E5%AE%89%E8%A3%85"><span class="toc-text">5.2.2 非大陆服务器Docker-compose安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-3-%E5%9B%BD%E5%86%85%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%89%E8%A3%85docker"><span class="toc-text">5.2.3 国内服务器安装docker</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-4-%E5%9B%BD%E5%86%85%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%89%E8%A3%85docker-compose"><span class="toc-text">5.2.4 国内服务器安装docker-compose</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-%E5%AE%89%E8%A3%85NginxProxyManager"><span class="toc-text">5.3 安装NginxProxyManager</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-%E5%88%9B%E5%BB%BA%E5%AE%89%E8%A3%85%E7%9B%AE%E5%BD%95%E5%8F%8Adocker-compose%E6%96%87%E4%BB%B6"><span class="toc-text">5.4 创建安装目录及docker-compose文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-5-%E6%89%93%E5%BC%80%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%98%B2%E7%81%AB%E5%A2%99%E5%B9%B6%E8%AE%BF%E9%97%AE%E7%BD%91%E9%A1%B5"><span class="toc-text">5.5 打开服务器防火墙并访问网页</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-6-%E6%9B%B4%E6%96%B0"><span class="toc-text">5.6 更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-7-%E5%8D%B8%E8%BD%BD"><span class="toc-text">5.7 卸载</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="toc-text">6. 反向代理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-%E5%88%A9%E7%94%A8Nginx-Proxy-Manager"><span class="toc-text">6.1 利用Nginx Proxy Manager</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B"><span class="toc-text">7. 使用教程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE"><span class="toc-text">7.1 安装和配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-Q-A"><span class="toc-text">8. Q&amp;A</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8-1-%E6%92%AD%E6%94%BE%E9%97%AE%E9%A2%98"><span class="toc-text">8.1 播放问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%A4%A7%E5%B0%8F"><span class="toc-text">文件大小</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8A%E4%BC%A0%E9%80%9F%E5%BA%A6"><span class="toc-text">上传速度</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8"><span class="toc-text">浏览器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8D%E6%94%AF%E6%8C%81%E7%9A%84%E6%96%87%E4%BB%B6%E7%B1%BB%E5%9E%8B"><span class="toc-text">不支持的文件类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8A%E4%BC%A0%E9%97%AE%E9%A2%98"><span class="toc-text">上传问题</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-%E7%BB%93%E5%B0%BE"><span class="toc-text">9. 结尾</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">参考资料</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/archives/docker-compose-install-bark/" title="开箱即用！一款注重隐私、安全可控的IOS自定义通知推送工具——Bark，配合Uptime Kuma搭建网站监控！"><img src="https://img.laoda.de/i/2023/07/13/p6ilo0-0.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="开箱即用！一款注重隐私、安全可控的IOS自定义通知推送工具——Bark，配合Uptime Kuma搭建网站监控！"/></a><div class="content"><a class="title" href="/archives/docker-compose-install-bark/" title="开箱即用！一款注重隐私、安全可控的IOS自定义通知推送工具——Bark，配合Uptime Kuma搭建网站监控！">开箱即用！一款注重隐私、安全可控的IOS自定义通知推送工具——Bark，配合Uptime Kuma搭建网站监控！</a><time datetime="2023-07-11T07:18:17.000Z" title="发表于 2023-07-11 15:18:17">2023-07-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/archives/turn-to-wordpress/" title="博客换域名+框架啦！"><img src="https://img.laoda.de/i/2022/05/02/dzx54l_7.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="博客换域名+框架啦！"/></a><div class="content"><a class="title" href="/archives/turn-to-wordpress/" title="博客换域名+框架啦！">博客换域名+框架啦！</a><time datetime="2023-06-19T03:36:46.165Z" title="发表于 2023-06-19 11:36:46">2023-06-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/archives/docker-compose-install-pandora/" title="打开Pandora的魔盒，丝滑地使用ChatGPT！不用API，完全免费，甚至可以搭建在本地！"><img src="https://img.laoda.de/i/2023/06/11/f5n4ct-0.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="打开Pandora的魔盒，丝滑地使用ChatGPT！不用API，完全免费，甚至可以搭建在本地！"/></a><div class="content"><a class="title" href="/archives/docker-compose-install-pandora/" title="打开Pandora的魔盒，丝滑地使用ChatGPT！不用API，完全免费，甚至可以搭建在本地！">打开Pandora的魔盒，丝滑地使用ChatGPT！不用API，完全免费，甚至可以搭建在本地！</a><time datetime="2023-06-11T01:17:09.323Z" title="发表于 2023-06-11 09:17:09">2023-06-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/archives/docker-compose-install-epusdt/" title="利用Docker搭建独角数卡的USDT支付方式，轻松收取加密货币！｜好玩儿的Docker项目"><img src="https://img.laoda.de/i/2023/05/29/z9figb-0.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="利用Docker搭建独角数卡的USDT支付方式，轻松收取加密货币！｜好玩儿的Docker项目"/></a><div class="content"><a class="title" href="/archives/docker-compose-install-epusdt/" title="利用Docker搭建独角数卡的USDT支付方式，轻松收取加密货币！｜好玩儿的Docker项目">利用Docker搭建独角数卡的USDT支付方式，轻松收取加密货币！｜好玩儿的Docker项目</a><time datetime="2023-05-29T13:48:17.430Z" title="发表于 2023-05-29 21:48:17">2023-05-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/archives/docker-compose-install-dujiaoka/" title="利用Docker轻松搭建独角发卡！人人都可以开一个线上小店｜好玩儿的Docker项目"><img src="https://img.laoda.de/i/2023/05/27/tt5xjf-0.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="利用Docker轻松搭建独角发卡！人人都可以开一个线上小店｜好玩儿的Docker项目"/></a><div class="content"><a class="title" href="/archives/docker-compose-install-dujiaoka/" title="利用Docker轻松搭建独角发卡！人人都可以开一个线上小店｜好玩儿的Docker项目">利用Docker轻松搭建独角发卡！人人都可以开一个线上小店｜好玩儿的Docker项目</a><time datetime="2023-05-27T10:14:45.930Z" title="发表于 2023-05-27 18:14:45">2023-05-27</time></div></div></div></div><div class="card-widget ads-wrap"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8920495929686095" data-ad-slot="9621041125" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div></div></div></main><footer id="footer" style="background-image: url('https://img.laoda.de/i/2022/05/02/dzx54l_7.webp')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By 咕咕</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">本站点由<a href="https://gao.ee/foot-link-bwg" rel="external nofollow noreferrer" target="_blank" style="font-weight:bold; color:#F4CA46;">搬瓦工</a>提供云服务</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (true){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>(()=>{
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://talk.gugu.ee/',
+      region: '',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://talk.gugu.ee/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      countELement.textContent = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const runFn = () => {
+    init()
+    GLOBAL_CONFIG_SITE.isPost && getCount()
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') {
+      setTimeout(runFn,0)
+      return
+    } 
+    getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(runFn)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
