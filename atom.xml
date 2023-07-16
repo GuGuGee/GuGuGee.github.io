@@ -38,9 +38,9 @@
     
     <category term="Hexo" scheme="https://blog.laoda.de/tags/Hexo/"/>
     
-    <category term="ChatGPT" scheme="https://blog.laoda.de/tags/ChatGPT/"/>
-    
     <category term="Butterfly" scheme="https://blog.laoda.de/tags/Butterfly/"/>
+    
+    <category term="ChatGPT" scheme="https://blog.laoda.de/tags/ChatGPT/"/>
     
   </entry>
   
@@ -352,9 +352,9 @@
     <category term="有用的小知识" scheme="https://blog.laoda.de/categories/%E6%9C%89%E7%94%A8%E7%9A%84%E5%B0%8F%E7%9F%A5%E8%AF%86/"/>
     
     
-    <category term="自动备份" scheme="https://blog.laoda.de/tags/%E8%87%AA%E5%8A%A8%E5%A4%87%E4%BB%BD/"/>
-    
     <category term="ChatGPT" scheme="https://blog.laoda.de/tags/ChatGPT/"/>
+    
+    <category term="自动备份" scheme="https://blog.laoda.de/tags/%E8%87%AA%E5%8A%A8%E5%A4%87%E4%BB%BD/"/>
     
   </entry>
   
@@ -582,9 +582,9 @@
     <category term="VPS推荐" scheme="https://blog.laoda.de/categories/VPS%E6%8E%A8%E8%8D%90/"/>
     
     
-    <category term="Cloudcone" scheme="https://blog.laoda.de/tags/Cloudcone/"/>
-    
     <category term="美国VPS" scheme="https://blog.laoda.de/tags/%E7%BE%8E%E5%9B%BDVPS/"/>
+    
+    <category term="Cloudcone" scheme="https://blog.laoda.de/tags/Cloudcone/"/>
     
   </entry>
   
