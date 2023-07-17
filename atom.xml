@@ -10,7 +10,7 @@
   <id>https://blog.laoda.de/</id>
   
   <author>
-    <name>咕咕</name>
+    <name>咕咕鸽</name>
     
   </author>
   
@@ -67,9 +67,9 @@
     
     <category term="DockerCompose" scheme="https://blog.laoda.de/tags/DockerCompose/"/>
     
-    <category term="Bark" scheme="https://blog.laoda.de/tags/Bark/"/>
-    
     <category term="Docker部署" scheme="https://blog.laoda.de/tags/Docker%E9%83%A8%E7%BD%B2/"/>
+    
+    <category term="Bark" scheme="https://blog.laoda.de/tags/Bark/"/>
     
   </entry>
   
