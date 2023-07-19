@@ -209,8 +209,6 @@
 
 <img src="https://img.laoda.de/i/2022/05/03/pd11c9_7.webp" alt="image-20220503153350570" style="zoom:50%;" />
 
-
-
 <p><img src="https://img.laoda.de/i/2022/05/03/pde7a1_7.webp" alt="image-20220503153411763"></p>
 <p><img src="https://img.laoda.de/i/2022/05/03/pdileh_7.webp" alt="image-20220503153431787"></p>
 <p><img src="https://img.laoda.de/i/2022/05/03/pdm4q4_7.webp" alt="image-20220503153448741"></p>
@@ -230,7 +228,7 @@
 <li>文件上传视图提供文件列表管理和文件批量上传功能，允许拖拽（需要<code>HTML5</code>支持）来添加上传文件，支持上传大图片，优先使用<code>HTML5</code>旧得浏览器自动使用<code>Flash和Silverlight</code>的方式兼容</li>
 </ul>
 <h2 id="5-搭建视频（上传中）"><a href="#5-搭建视频（上传中）" class="headerlink" title="5. 搭建视频（上传中）"></a>5. 搭建视频（上传中）</h2><p>YouTube：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://youtu.be/kOW46igrQvA">https://youtu.be/kOW46igrQvA</a></p>
-<p>哔哩哔哩【高清版本可以点击去吐槽到B站观看】：<joe-bilibili bvid="BV1Ya411e7ES"></joe-bilibili></p>
+<p>哔哩哔哩【高清版本可以点击去吐槽到B站观看】：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.bilibili.com/BV1Ya411e7ES">https://www.bilibili.com/BV1Ya411e7ES</a></p>
 <h2 id="6-搭建方式"><a href="#6-搭建方式" class="headerlink" title="6. 搭建方式"></a>6. 搭建方式</h2><p>其实可以直接看<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.kancloud.cn/easyimage/easyimage/2625222">文档</a></p>
 <h3 id="6-1-安装必需的PHP扩展"><a href="#6-1-安装必需的PHP扩展" class="headerlink" title="6.1 安装必需的PHP扩展"></a>6.1 安装必需的PHP扩展</h3><h4 id="6-1-1-apparel（宝塔面板）"><a href="#6-1-1-apparel（宝塔面板）" class="headerlink" title="6.1.1 apparel（宝塔面板）"></a>6.1.1 apparel（宝塔面板）</h4><p>打开宝塔后台-&gt;<code>软件商店</code>-&gt;<code>已安装</code>-&gt;<code>选择php</code>-&gt;<code>设置</code>-&gt;安装<code>Fileinfo</code>、<code>iconv</code>、<code>zip</code>、<code>mbstring</code>、<code>openssl</code>扩展（如果没有就是已经安装了）。</p>
 <p><img src="https://img.laoda.de/i/2022/05/03/keyffm_7.webp" alt="image-20220503123440397"></p>
@@ -244,8 +242,6 @@
 <p><del>依次再安装其他需要的扩展。</del>实测只有这一个需要安装。</p>
 <p>安装完成之后，记得重启PHP。</p>
 <img src="https://img.laoda.de/i/2022/05/03/pbsbjd_7.webp" alt="image-20220503153141936" style="zoom:50%;" />
-
-
 
 <h4 id="6-1-2-Lnmp"><a href="#6-1-2-Lnmp" class="headerlink" title="6.1.2 Lnmp"></a>6.1.2 Lnmp</h4><p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.vpser.net/manage/lnmp-php-install-ext.html">lnmp安装扩展教程</a></p>
 <h3 id="6-2-将域名解析到服务器"><a href="#6-2-将域名解析到服务器" class="headerlink" title="6.2 将域名解析到服务器"></a>6.2 将域名解析到服务器</h3><p>把你图床打算用的域名解析到搭建图床的服务器上，这边以cloudflare为例子：</p>
@@ -289,8 +285,6 @@
 <p><img src="https://img.laoda.de/i/2022/05/03/knomkb_7.webp" alt="image-20220503124907201"></p>
 <h3 id="6-4-开始安装"><a href="#6-4-开始安装" class="headerlink" title="6.4 开始安装"></a>6.4 开始安装</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/icret/EasyImages2.0.git  <span class="comment"># 至web目录赋予www:www和0755权限</span></span><br><span class="line"><span class="built_in">chmod</span> 755 -R /网站绝对路径</span><br><span class="line"><span class="built_in">chown</span> -R www:www /网站绝对路径</span><br></pre></td></tr></table></figure>
 
-
-
 <p>EasyImage2.0 不需要任何伪静态支持，在Apache、Nginx均完美通过使用。</p>
 <p>程序名称为简单图床，真的非常简单。</p>
 <p>如果复杂的说总共需要四步：</p>
@@ -306,8 +300,6 @@
 <li>Nginx环境禁止多个目录运行<code>PHP</code>程序：</li>
 </ul>
 <figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"> <span class="comment"># &quot;i|public&quot;是你要禁止的目录 放到listen段落之后才生效</span></span><br><span class="line"> <span class="section">location</span> <span class="regexp">~* ^/(i|public)/.*\.(php|php5)$</span></span><br><span class="line">&#123;</span><br><span class="line">   <span class="attribute">deny</span> all;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-
-
 
 <p>或者参考：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://blog.png.cm/996.html">https://blog.png.cm/996.html</a></p>
 <h2 id="7-使用教程"><a href="#7-使用教程" class="headerlink" title="7. 使用教程"></a>7. 使用教程</h2><p>看咕咕的视频，或者自己研究，看<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.kancloud.cn/easyimage/easyimage/2625222">文档</a></p>
@@ -341,13 +333,9 @@
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[&#123;</span><br><span class="line">    &quot;className&quot;: &quot;Drawing&quot;,</span><br><span class="line">    &quot;probability&quot;: 0.824431836605072</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    &quot;className&quot;: &quot;Hentai&quot;,</span><br><span class="line">    &quot;probability&quot;: 0.16360442340373993</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    &quot;className&quot;: &quot;Neutral&quot;,</span><br><span class="line">    &quot;probability&quot;: 0.007620695047080517</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    &quot;className&quot;: &quot;Porn&quot;,</span><br><span class="line">    &quot;probability&quot;: 0.004154415801167488</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    &quot;className&quot;: &quot;Sexy&quot;,</span><br><span class="line">    &quot;probability&quot;: 0.00018858206749428064</span><br><span class="line">&#125;]</span><br></pre></td></tr></table></figure>
 
-
-
 <h3 id="7-3-其他功能"><a href="#7-3-其他功能" class="headerlink" title="7.3 其他功能"></a>7.3 其他功能</h3><p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/icret/EasyImage-Browser-Extension">图床的Chrome&#x2F;Edge 插件地址：</a></p>
 <p>以下功能，咕咕用的不多，请自行查看相关<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.kancloud.cn/easyimage/easyimage/2625222">文档</a></p>
 <img src="https://img.laoda.de/i/2022/05/03/j2ljh6_7.webp" alt="image-20220503115319647" style="zoom: 50%;" />
-
-
 
 <h3 id="7-4-常见问题"><a href="#7-4-常见问题" class="headerlink" title="7.4 常见问题"></a>7.4 常见问题</h3><ol>
 <li>请将所有文件赋予<code>0755</code>和<code>www</code>权限</li>
@@ -365,8 +353,6 @@
 <li>开启原图保护功能后打开图片链接显示<code>404</code>是因为<code>nginx</code>或<code>Apache</code>页面缓存导致的,<code>Nginx</code>解决办法:</li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 把Nginx这段配置删掉</span><br><span class="line">location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$</span><br><span class="line">&#123;</span><br><span class="line">    expires      30d;</span><br><span class="line">    error_log /dev/null;</span><br><span class="line">    access_log /dev/null;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
 
 <h3 id="7-5-程序升级"><a href="#7-5-程序升级" class="headerlink" title="7.5 程序升级"></a>7.5 程序升级</h3><ul>
 <li>备份<code>config</code>目录(没有增加上传用户和api可以只保留<code>config.php</code>文件)和<code>上传文件目录</code></li>

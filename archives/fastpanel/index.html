@@ -228,7 +228,7 @@
 <p>电子邮件服务器通常使用反向查找。电子邮件服务器会检查并查看电子邮件消息是否来自有效服务器，然后再将其带到网络中。许多电子邮件服务器会拒绝来自任何不支持反向查找的服务器或来自不太可能是合法的服务器的邮件。垃圾邮件发送者经常使用来自被劫持机器的 IP 地址，这意味着不会有 PTR 记录。或者，他们可能使用动态分配的 IP 地址，这些地址会导致具有高度通用名称的服务器域。</p>
 </blockquote>
 <h2 id="4-搭建视频"><a href="#4-搭建视频" class="headerlink" title="4. 搭建视频"></a>4. 搭建视频</h2><p>YouTube：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://youtu.be/JjKpLfMGimA">https://youtu.be/JjKpLfMGimA</a></p>
-<p>哔哩哔哩【高清版本可以点击去吐槽到B站观看】：<joe-bilibili bvid="BV1ot4y1H79u"></joe-bilibili></p>
+<p>哔哩哔哩【高清版本可以点击去吐槽到B站观看】：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.bilibili.com/BV1ot4y1H79u">https://www.bilibili.com/BV1ot4y1H79u</a></p>
 <h2 id="5-搭建方式"><a href="#5-搭建方式" class="headerlink" title="5. 搭建方式"></a>5. 搭建方式</h2><h3 id="5-1-服务器初始设置"><a href="#5-1-服务器初始设置" class="headerlink" title="5.1 服务器初始设置"></a>5.1 服务器初始设置</h3><p>服务器初始设置，参考</p>
 <p><a href="https://blog.laoda.de/archives/vps-script"><strong>新买了一台服务器“必须”要做的6件小事</strong></a></p>
 <p><a href="https://blog.laoda.de/archives/hello-docker">【Docker系列】不用宝塔面板，小白一样可以玩转VPS服务器！</a></p>
@@ -245,12 +245,8 @@
 
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo -i <span class="comment"># 切换到root用户</span></span><br><span class="line"></span><br><span class="line">apt update -y  <span class="comment"># 升级packages</span></span><br><span class="line"></span><br><span class="line">apt install wget curl sudo vim git  <span class="comment"># Debian系统比较干净，安装常用的软件</span></span><br></pre></td></tr></table></figure>
 
-
-
 <h3 id="5-2-域名解析"><a href="#5-2-域名解析" class="headerlink" title="5.2 域名解析"></a>5.2 域名解析</h3><p>一般来说，需要解析下面几个域名（<code>gugu.ge</code>替换为你自己的实际域名，<code>88.88.88.88</code>替换为自己的服务IP，后面三个<code>TXT</code>记录可以现不设置，我们下一期讲邮件服务器的时候再设置也可以）：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">A   gugu.ge  88.88.88.88</span><br><span class="line">A   mx.gugu.ge  88.88.88.88</span><br><span class="line">MX  gugu.ge  mx.gugu.ge  优先级10</span><br><span class="line">TXT gugu.ge  v=spf1 mx ~all</span><br><span class="line">TXT _dmarc.gugu.ge v=DMARC1; p=none; pct=100; rua=mailto:admin@gugu.ge</span><br><span class="line">TXT dkim._domainkey  填fastpanel里面的</span><br></pre></td></tr></table></figure>
-
-
 
 <h3 id="5-3-搭建命令"><a href="#5-3-搭建命令" class="headerlink" title="5.3 搭建命令"></a>5.3 搭建命令</h3><p>非常简单。</p>
 <p>首先确保你是<code>root</code>身份。</p>
@@ -265,8 +261,6 @@
 <p>登陆服务器：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh root@your.server</span><br></pre></td></tr></table></figure>
 
-
-
 <p>(可选) wget没装的话，用下面的命令安装：</p>
 <p><strong>Debian &#x2F; Ubuntu</strong>:</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">apt-get update; apt-get install wget</span><br></pre></td></tr></table></figure>
@@ -274,12 +268,8 @@
 <p><strong>CentOS &#x2F; AlmaLinux &#x2F; Rocky Linux:</strong></p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum makecache; yum install wget</span><br></pre></td></tr></table></figure>
 
-
-
 <p>下载官方安装脚本：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget http://repo.fastpanel.direct/install_fastpanel.sh -O - | bash -</span><br></pre></td></tr></table></figure>
-
-
 
 <p>安装界面：</p>
 <p><img src="https://img.laoda.de/i/2022/06/18/ds9cqq-2.webp" alt="a80582ec0a20b2ca33f81379560e0f93.png"></p>
@@ -306,8 +296,6 @@
 <p>检查 25 端口是否开放</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">telnet smtp.aol.com 25</span><br></pre></td></tr></table></figure>
 
-
-
 <p><img src="https://img.laoda.de/i/2022/06/10/pah9nc-0.webp" alt="image-20220610152923744"></p>
 <p>内容有点多，放在下一期介绍。</p>
 <h2 id="9-反向代理"><a href="#9-反向代理" class="headerlink" title="9. 反向代理"></a>9. 反向代理</h2><p><img src="https://img.laoda.de/i/2022/06/17/ze3wir-2.webp" alt="image-20220617213959810"></p>
@@ -315,8 +303,6 @@
 <p>注释掉上面这个。</p>
 <p>添加下面的代码：</p>
 <figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">location</span> / &#123;</span><br><span class="line">  <span class="attribute">proxy_pass</span> http://127.0.0.1:8080/;  <span class="comment"># 改为你需要反代的地址</span></span><br><span class="line">  <span class="attribute">rewrite</span><span class="regexp"> ^/(.*)$</span> /<span class="variable">$1</span> <span class="literal">break</span>;</span><br><span class="line">  <span class="attribute">proxy_redirect</span> <span class="literal">off</span>;</span><br><span class="line">  <span class="attribute">proxy_set_header</span> Host <span class="variable">$host</span>;</span><br><span class="line">  <span class="attribute">proxy_set_header</span> X-Forwarded-Proto <span class="variable">$scheme</span>;</span><br><span class="line">  <span class="attribute">proxy_set_header</span> X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">  <span class="attribute">proxy_set_header</span> X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">  <span class="attribute">proxy_set_header</span> Upgrade-Insecure-Requests <span class="number">1</span>;</span><br><span class="line">  <span class="attribute">proxy_set_header</span> X-Forwarded-Proto https;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
 
 <h2 id="10-其他特性介绍"><a href="#10-其他特性介绍" class="headerlink" title="10. 其他特性介绍"></a>10. 其他特性介绍</h2><p>见视频</p>
 <h2 id="11-坑（有解决的小伙伴欢迎留言）"><a href="#11-坑（有解决的小伙伴欢迎留言）" class="headerlink" title="11. 坑（有解决的小伙伴欢迎留言）"></a>11. 坑（有解决的小伙伴欢迎留言）</h2><h4 id="11-1-HTTP验证"><a href="#11-1-HTTP验证" class="headerlink" title="11.1 HTTP验证"></a>11.1 HTTP验证</h4><p>实测HTTP验证打开之后，如果不想用了，关闭不起作用，重启服务器也不行。始终要求输入第一次的账号密码。</p>

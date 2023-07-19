@@ -198,7 +198,6 @@
 <p><strong>方法二：</strong> 一健安装脚本</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">curl -fsSL https://get.docker.com/ | sh</span><br></pre></td></tr></table></figure>
 
-
 <h3 id="安装Docker-Compose"><a href="#安装Docker-Compose" class="headerlink" title="安装Docker Compose"></a>安装Docker Compose</h3><p><strong>官方文档：</strong> <a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.docker.com/compose/install/">https://docs.docker.com/compose/install/</a></p>
 <p>CentOS 7 安装：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo curl -L <span class="string">&quot;https://github.com/docker/compose/releases/download/1.29.2/docker-compose-<span class="subst">$(uname -s)</span>-<span class="subst">$(uname -m)</span>&quot;</span> -o /usr/local/bin/docker-compose</span><br></pre></td></tr></table></figure>
@@ -210,7 +209,7 @@
 <p>如果显示版本号，则说明安装成功了。</p>
 <p><code>docker-compose version 1.29.2, build 1110ad01</code></p>
 <h3 id="配置Docker-compose"><a href="#配置Docker-compose" class="headerlink" title="配置Docker-compose"></a>配置Docker-compose</h3><p><img src="https://cdn.jsdelivr.net/gh/RalstonLiu/mdnice4/2021-6-28/1624851827817-3a107e2382714b188b6e53397920832e.png"></p>
-<p>首先到<code> /opt</code>目录下新建一个<code>docker-compose.yml</code>文件</p>
+<p>首先到<code>/opt</code>目录下新建一个<code>docker-compose.yml</code>文件</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /opt/</span><br><span class="line"></span><br><span class="line"><span class="built_in">mkdir</span> docker-compose.yml</span><br></pre></td></tr></table></figure>
 
 <p>编辑<code>docker-compose.yml</code>，</p>
@@ -232,6 +231,7 @@
 <p>注意<code>proxy_pass https://127.0.0.1:3006;</code> 这边换成你实际的配置。</p>
 <p>如果是在本机配置的反向代理直接复制就行，如果是别的机器，记得把<code>127.0.0.1</code>换成你docker部署机子的ip地址。</p>
 <h3 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+
 <p>（注意在docker-compose.yml的目录下运行）</p>
 <p>接着就会拉去一系列的镜像，可能会多花一点时间，耐心等待，等到出现下面的<code>done</code>就表示成功了（注意在<code>docker-compose.yml</code>的目录下运行）</p>
 <p><strong>注：</strong> 阿里、腾讯、华为等服务器，记得去后台安全组或者防火墙打开相应端口，我们这边是<code>3006</code></p>
@@ -239,6 +239,7 @@
 <p>运行<code>docker ps</code>，已经看到成功启动的容器了。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/RalstonLiu/mdnice4/2021-6-28/1624851970427-2fdb7acc76a743b48f8335120972eb43.png"></p>
 <h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it koel_base php artisan koel:init</span><br></pre></td></tr></table></figure>
+
 <p>（<code>koel_base</code>是容器的名字）</p>
 <p>按提示输入信息就行，</p>
 <p><img src="https://cdn.jsdelivr.net/gh/RalstonLiu/mdnice4/2021-6-28/1624851985760-de17f4b8a8c547e29d37f9cc97043628.png"></p>

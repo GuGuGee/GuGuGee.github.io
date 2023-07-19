@@ -186,8 +186,6 @@
 <p>那么还有一些小伙伴，觉得没有一个可视化的面板，操作起来就是不习惯，然后又不想用宝塔了，该怎么办呢？</p>
 <img src="https://img.laoda.de/i/2022/06/10/hc6iyx-0.webp" alt="image-20220610104837383" style="zoom:50%;" />
 
-
-
 <p>今天，咕咕就和这部分需求的小伙伴们分享一个海外的开源服务器面板——Hestia</p>
 <p><img src="https://img.laoda.de/i/2022/06/10/hcv1wh-0.webp" alt="image-20220610104950409"></p>
 <h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h2><p><strong>Hestia，是古希腊神话中的灶神、炉之女神和火焰女神，奥林匹斯十二主神之一。</strong></p>
@@ -228,7 +226,7 @@
 <p>注意：建议VPS最好是<code>1核1G</code>以上配置，低配置不一定可以正常运行！</p>
 </blockquote>
 <h2 id="4-搭建视频"><a href="#4-搭建视频" class="headerlink" title="4. 搭建视频"></a>4. 搭建视频</h2><p>YouTube：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://youtu.be/DC7KyK_1mzs">https://youtu.be/DC7KyK_1mzs</a></p>
-<p>哔哩哔哩【高清版本可以点击去吐槽到B站观看】：<joe-bilibili bvid="BV1iZ4y1q7XN"></joe-bilibili></p>
+<p>哔哩哔哩【高清版本可以点击去吐槽到B站观看】：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.bilibili.com/BV1iZ4y1q7XN">https://www.bilibili.com/BV1iZ4y1q7XN</a></p>
 <h2 id="5-搭建方式"><a href="#5-搭建方式" class="headerlink" title="5. 搭建方式"></a>5. 搭建方式</h2><h3 id="5-1-服务器初始设置"><a href="#5-1-服务器初始设置" class="headerlink" title="5.1 服务器初始设置"></a>5.1 服务器初始设置</h3><p>服务器初始设置，参考</p>
 <p><a href="https://blog.laoda.de/archives/vps-script"><strong>新买了一台服务器“必须”要做的6件小事</strong></a></p>
 <p><a href="https://blog.laoda.de/archives/hello-docker">【Docker系列】不用宝塔面板，小白一样可以玩转VPS服务器！</a></p>
@@ -244,8 +242,6 @@
 <img src="https://img.laoda.de/i/2022/05/28/up2dkf-0.webp" alt="image-20220528185604586" style="zoom: 33%;" />
 
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo -i <span class="comment"># 切换到root用户</span></span><br><span class="line"></span><br><span class="line">apt update -y  <span class="comment"># 升级packages</span></span><br><span class="line"></span><br><span class="line">apt install wget curl sudo vim git  <span class="comment"># Debian系统比较干净，安装常用的软件</span></span><br></pre></td></tr></table></figure>
-
-
 
 <h3 id="5-2-域名解析"><a href="#5-2-域名解析" class="headerlink" title="5.2 域名解析"></a>5.2 域名解析</h3><p>一般来说，需要解析下面几个域名（<code>admin.com</code>替换为你自己的实际域名）：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hcp.admin.com      <span class="comment"># 面板域名</span></span><br><span class="line"></span><br><span class="line">mail.admin.com     <span class="comment"># 邮件域名</span></span><br><span class="line"></span><br><span class="line">webmail.admin.com  <span class="comment"># 邮件面板域名</span></span><br><span class="line"></span><br><span class="line">admin.com          <span class="comment"># 主域名</span></span><br><span class="line"></span><br><span class="line">www.admin.com      <span class="comment"># www域名</span></span><br></pre></td></tr></table></figure>
@@ -264,16 +260,10 @@
 <p>下载官方脚本：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget https://raw.githubusercontent.com/hestiacp/hestiacp/release/install/hst-install.sh</span><br></pre></td></tr></table></figure>
 
-
-
 <h4 id="5-3-1-交互式搭建"><a href="#5-3-1-交互式搭建" class="headerlink" title="5.3.1 交互式搭建"></a>5.3.1 交互式搭建</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bash hst-install.sh</span><br></pre></td></tr></table></figure>
-
-
 
 <h4 id="5-3-2-无人值守搭建（我们选这个）"><a href="#5-3-2-无人值守搭建（我们选这个）" class="headerlink" title="5.3.2 无人值守搭建（我们选这个）"></a>5.3.2 无人值守搭建（我们选这个）</h4><p>官方默认：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bash hst-install.sh --interactive no --email email@domain.tld --password p4ssw0rd --hostname hostname.domain.tld -f</span><br></pre></td></tr></table></figure>
-
-
 
 <p>我们不用这个，我们自定义参数，到这个网址：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://gabizz.github.io/hestiacp-scriptline-generator/">https://gabizz.github.io/hestiacp-scriptline-generator/</a></p>
 <p>按需要选择：</p>
@@ -282,12 +272,8 @@
 <p>咕咕视频中的参考：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget https://raw.githubusercontent.com/hestiacp/hestiacp/release/install/hst-install.sh <span class="comment"># 下载脚本</span></span><br></pre></td></tr></table></figure>
 
-
-
 <p>你如果嫌麻烦，也可以用咕咕的这个，不过，记得<code>hcp.domain.com</code>,<code>admin@guguge.com</code>,<code>admin@password1</code>改成你自己实际用的。</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo bash hst-install.sh --apache no --phpfpm <span class="built_in">yes</span> --multiphp <span class="built_in">yes</span> --vsftpd no --proftpd <span class="built_in">yes</span> --named <span class="built_in">yes</span> --mysql <span class="built_in">yes</span> --postgresql no --exim <span class="built_in">yes</span> --dovecot <span class="built_in">yes</span> --sieve no --clamav <span class="built_in">yes</span> --spamassassin <span class="built_in">yes</span> --iptables <span class="built_in">yes</span> --fail2ban <span class="built_in">yes</span> --quota <span class="built_in">yes</span> --api <span class="built_in">yes</span> --interactive <span class="built_in">yes</span> --with-debs no  --port 2053 --hostname hcp.domain.com --email admin@guguge.com --password admin@password1 --lang zh-cn  --force  <span class="comment"># 执行脚本</span></span><br></pre></td></tr></table></figure>
-
-
 
 <p>安装界面：</p>
 <p><img src="https://img.laoda.de/i/2022/06/10/gvl17o-0.webp" alt="05b31cab4bfa001bcc064e995c74d5f4.png"></p>
@@ -301,8 +287,6 @@
 <p>如果之前hostname没有设置，需要先运行：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">v-change-sys-hostname host.domain.com <span class="comment"># 其中 host.domain.com 改成你自己的主机名字</span></span><br></pre></td></tr></table></figure>
 
-
-
 <blockquote>
 <p>Racknerd的hostname问题可以参考视频。</p>
 </blockquote>
@@ -315,8 +299,6 @@
 <h2 id="9-创建域名邮箱"><a href="#9-创建域名邮箱" class="headerlink" title="9. 创建域名邮箱"></a>9. 创建域名邮箱</h2><p>见视频</p>
 <p>检查 25 端口是否开放</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">telnet smtp.aol.com 25</span><br></pre></td></tr></table></figure>
-
-
 
 <p><img src="https://img.laoda.de/i/2022/06/10/pah9nc-0.webp" alt="image-20220610152923744"></p>
 <p><img src="/:/379c9da6309645b999978e08164731f9" alt="92271096a5e4fdbf5c607cebb041f721.png"></p>

@@ -175,9 +175,7 @@
 <p>还有一种是docker-compose的形式的（比如<a href="https://blog.laoda.de/archives/docker-install-qbittorrent">qBittorrent</a>）：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">version: <span class="string">&quot;2&quot;</span></span><br><span class="line">services:</span><br><span class="line">  qbittorrent:</span><br><span class="line">    image: linuxserver/qbittorrent</span><br><span class="line">    container_name: qbittorrent</span><br><span class="line">    environment:</span><br><span class="line">      - PUID=1000</span><br><span class="line">      - PGID=1000</span><br><span class="line">      - TZ=Asia/Shanghai <span class="comment"># 你的时区</span></span><br><span class="line">      - UMASK_SET=022</span><br><span class="line">      - WEBUI_PORT=8081 <span class="comment"># 将此处修改成你欲使用的 WEB 管理平台端口 </span></span><br><span class="line">    volumes:</span><br><span class="line">      - /root/data/docker_data/qBittorrent/config:/config <span class="comment"># 绝对路径请修改为自己的config文件夹</span></span><br><span class="line">      - /root/data/docker_data/qBittorrent/downloads:/downloads <span class="comment"># 绝对路径请修改为自己的downloads文件夹</span></span><br><span class="line">    ports:</span><br><span class="line">      <span class="comment"># 要使用的映射下载端口与内部下载端口，可保持默认，安装完成后在管理页面仍然可以改成其他端口。</span></span><br><span class="line">      - 6881:6881 </span><br><span class="line">      - 6881:6881/udp</span><br><span class="line">      <span class="comment"># 此处WEB UI 目标端口与内部端口务必保证相同，见问题1</span></span><br><span class="line">      - 8081:8081</span><br><span class="line">    restart: unless-stopped</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-
-
-<p>很明显，相比前一种方式，后一种<code>docker-compose</code>的方法更简单一些，所有配置文件都在<code>docker-compose.yml</code>里头，我们只需要在这个文件夹下，运行<code>docker-compose up -d </code>就可以了，搬家换服务器的时候，也把这份配置文件带上，可以很轻松地完成<a href="https://blog.laoda.de/archives/docker-issues">服务器迁移</a>工作。</p>
+<p>很明显，相比前一种方式，后一种<code>docker-compose</code>的方法更简单一些，所有配置文件都在<code>docker-compose.yml</code>里头，我们只需要在这个文件夹下，运行<code>docker-compose up -d</code>就可以了，搬家换服务器的时候，也把这份配置文件带上，可以很轻松地完成<a href="https://blog.laoda.de/archives/docker-issues">服务器迁移</a>工作。</p>
 <p>那么，有没有办法，把前面的那种类似命令行的模式，改成docker-compose的模式呢？其实，仔细观察，就会发现，他们是一个东西，我们没有深入研究<code>docker compose</code>，也能猜到，<code>docker-compose</code>的文件，其实就是把命令行的那串东西，通过一定的规则，<code>转换</code>而来的。</p>
 <p>你对照着，其实也能大概写出一个雏形。</p>
 <p>而今天，我们要分享的，就是利用工具，快速完成这个<code>转换</code>的动作！</p>
@@ -194,7 +192,7 @@
 <li><del>【非必需本教程采用】安装好Nginx Proxy Manager（<a href="https://blog.laoda.de/archives/nginxproxymanager">相关教程</a>）</del></li>
 </ul>
 <h3 id="2-2-搭建视频"><a href="#2-2-搭建视频" class="headerlink" title="2.2 搭建视频"></a>2.2 搭建视频</h3><p>YouTube：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://youtu.be/hH-ezOV4lY0">https://youtu.be/hH-ezOV4lY0</a></p>
-<p>哔哩哔哩【高清版本可以点击去吐槽到B站观看】：<joe-bilibili bvid="BV1aU4y1176c"></joe-bilibili></p>
+<p>哔哩哔哩【高清版本可以点击去吐槽到B站观看】：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.bilibili.com/BV1aU4y1176c">https://www.bilibili.com/BV1aU4y1176c</a></p>
 <p>其实很简单。</p>
 <p>首先我们要安装一个NPM（注意，这里的NPM是真的NPM，不是指Nginx Proxy Manager）</p>
 <img src="https://img.laoda.de/i/2022/05/20/tzqbt6-0.webp" alt="image-20220520181351747" style="zoom:50%;" />
@@ -205,24 +203,16 @@
 <p>然后用NPM来安装。</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">apt update -y </span><br><span class="line"></span><br><span class="line">sudo apt install npm -y </span><br><span class="line"></span><br><span class="line">npm install composerize -g  <span class="comment"># -g 表示全局安装</span></span><br></pre></td></tr></table></figure>
 
-
-
 <p>使用方法：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">composerize docker run -d --name tinypin -p 3030:3000 -v <span class="string">&quot;<span class="subst">$(pwd)</span>/data:/data&quot;</span> --restart=unless-stopped slynn1324/tinypin</span><br></pre></td></tr></table></figure>
-
-
-
-
 
 <h2 id="3-注意事项"><a href="#3-注意事项" class="headerlink" title="3. 注意事项"></a>3. 注意事项</h2><p>遇到部分复杂的命令，可能会转换不成功，例如：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker run -d --name=Whiteboard -p 8080:8080  --memory=2g --cpus=1 --restart=always --net=vlan100 --ip=192.168.100.17 rofl256/whiteboard </span><br></pre></td></tr></table></figure>
 
-
-
 <p>转换结果如下：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">version: <span class="string">&#x27;3.3&#x27;</span></span><br><span class="line">services:</span><br><span class="line">    whiteboard:</span><br><span class="line">        container_name: Whiteboard</span><br><span class="line">        ports:</span><br><span class="line">            - <span class="string">&#x27;8080:8080&#x27;</span></span><br><span class="line">        restart: always</span><br><span class="line">        network_mode: vlan100</span><br><span class="line">        image: rofl256/whiteboard</span><br></pre></td></tr></table></figure>
 
-<p>可以发现，丢失了很多东西  &#x3D; &#x3D; </p>
+<p>可以发现，丢失了很多东西  &#x3D; &#x3D;</p>
 <p>项目还在维护中，希望能越来越好。</p>
 <h2 id="4-最后"><a href="#4-最后" class="headerlink" title="4. 最后"></a>4. 最后</h2><p>祝大家用得开心，有问题可以去GitHub提<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/magicmark/composerize/issues">Issues</a>，也可以在评论区互相交流探讨。</p>
 <p>同时，有能力给项目做贡献的同学，也欢迎积极加入到<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/magicmark/composerize">项目</a>中来，贡献自己的一份力量！</p>
@@ -326,8 +316,6 @@
 <p>YouTube的小伙伴可以发现现在视频下方有个<code>感谢</code>功能，也可以给咕咕充电了！</p>
 <p><img src="https://img.laoda.de/i/2022/05/20/u99g9u-0.webp" alt="image-20220520182952683"></p>
 <img src="https://img.laoda.de/i/2022/05/20/ua55o2-0.webp" alt="image-20220520183101106" style="zoom:33%;" />
-
-
 
 <p><code>购买并发送</code>之后，你的评论在评论区就会显示彩色 &#x3D; &#x3D;</p>
 <p>大家的鼓励是咕咕持续分享的动力！</p>
