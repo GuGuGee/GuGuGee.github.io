@@ -6,7 +6,7 @@
   <link href="https://blog.laoda.de/atom.xml" rel="self"/>
   
   <link href="https://blog.laoda.de/"/>
-  <updated>2023-07-24T15:23:42.412Z</updated>
+  <updated>2023-08-03T13:58:45.671Z</updated>
   <id>https://blog.laoda.de/</id>
   
   <author>
@@ -15,6 +15,61 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>免费12个月使用！体验AWS——目前世界上最大的云服务器提供商家！（含DD教程）</title>
+    <link href="https://blog.laoda.de/archives/aws-free/"/>
+    <id>https://blog.laoda.de/archives/aws-free/</id>
+    <published>2023-08-03T13:55:12.000Z</published>
+    <updated>2023-08-03T13:58:45.671Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="https://img.laoda.de/i/2023/08/03/dy68sc-0.webp" alt="54f5c741679d226ad992c348d6bcca2e.png"></p><p>几乎每个大厂都可以免费体验一定时长的云服务，比如GCP、Azure，甲骨文甚至还有可以永久免费的服务器。</p><p><img src="https://img.laoda.de/i/2023/08/03/dzsptl-0.webp" alt="33bb560749fb4dc108fd22aa7efe27e3.png"></p><p>这一期，我们就来免费体验一下世界上最大的云服务器提供商——亚马逊的云服务 (<a href="https://gao.ee/aws">AWS</a>)</p><p><img src="https://img.laoda.de/i/2023/08/03/dyi6b7-0.webp" alt="a6008202f607ebee921a0e39d19cd8d6.png"></p><blockquote><p>世界上最大的云服务器提供商是亚马逊网络服务 (AWS)。AWS 是一家全球性云计算平台，提供计算、存储、数据库、网络、分析、机器学习、人工智能、移动、开发工具和企业应用等多种服务。AWS 在全球拥有超过 200 个区域和 70 多个国家&#x2F;地区的数据中心。</p><p>2022 年，AWS 的收入为 540.5 亿美元，比 2021 年增长了 37%。AWS 是世界上最受欢迎的云计算平台，拥有超过 300 万客户。AWS 的客户包括小型企业、中型企业和大型企业，以及政府机构和非营利组织。</p><p>AWS 的优势包括：</p><p>广泛的服务：AWS 提供广泛的服务，满足企业的各种需求。<br>可靠性：AWS 拥有全球最可靠的数据中心网络。<br>安全性：AWS 提供最先进的安全功能。<br>成本效益：AWS 的价格非常合理。</p></blockquote><p>来源：bard.google.com</p><p><a href="https://gao.ee/aws">AWS</a>其实可以免费<del>白嫖</del>体验很多产品，比如云服务器（ec2），云存储（S3），CDN相关产品（网站提速），lightsail（VPS,搭建远程桌面）SES (群发邮件)，Amazon Chime （视频会议）等等等等，大家可以随意尝试。</p><p>这边我们玩服务器多一些，就来白嫖12个月的EC2吧。</p><p><img src="https://img.laoda.de/i/2023/07/19/10w0lwk-0.webp" alt="74853af64cc16c50f361471e346b97ba.png"></p><h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>AWS 免费体验地址：<a href="https://gao.ee/aws">https://gao.ee/aws</a></p><p>正式开始之前，建议你准备：</p><ul><li>一个邮箱</li><li>一个可以接受验证码的手机号（大家可以用自己的手机号接受验证码，正常国内的能收到码，也可以可以选择GV或者是到<a href="https://5sim.net/zh">5sim.net</a>上找接码，看是最低6卢布（大概5毛钱）一条）</li><li>一张信用卡（只是授权一下，并不会要你钱，可以是虚拟卡，比如咕咕用的<a href="https://blog.laoda.de/archives/onekey-card-tutorial">OneKey Card</a>）</li><li>注册账号的时候不要挂代理</li></ul><h2 id="开始注册"><a href="#开始注册" class="headerlink" title="开始注册"></a>开始注册</h2><p>点击创建<a href="https://gao.ee/aws">AWS账户</a>，一步一步完成注册即可，地址填拼音。</p><p>具体可以看视频。</p><p>YouTube视频地址：<a href="https://youtu.be/r6Mr5tBCnvc">https://youtu.be/r6Mr5tBCnvc</a></p><p>bilibili视频地址：<a href="https://www.bilibili.com/video/BV1VP411t7ia/">https://www.bilibili.com/video/BV1VP411t7ia/</a></p><img src="https://img.laoda.de/i/2023/07/19/10wadak-0.webp" alt="b16ce8b66a52d72e800af237395260e4.png" style="zoom:33%;" /><img src="https://img.laoda.de/i/2023/07/19/10wbyp2-0.webp" alt="634cfafb4f2c40764ae6a21fa62f61ed.png" style="zoom:33%;" /><p>没什么问题的话，你会看到这个界面。</p><p><img src="https://img.laoda.de/i/2023/07/19/10wd9bi-0.webp" alt="d0ee6d255c695ffd6ac1b83c17fd3828.png"></p><p>信用卡验证预扣款截图：</p><p><img src="https://img.laoda.de/i/2023/07/19/10weg2q-0.webp" alt="517e9a1ec1a10e77e29c553d273b5a61.png"></p><h2 id="AWS后台概览"><a href="#AWS后台概览" class="headerlink" title="AWS后台概览"></a>AWS后台概览</h2><p>选择服务器地区：</p><p><img src="https://img.laoda.de/i/2023/07/19/10wflzn-0.webp" alt="2c17a641badf9ab13cacc453ca4e1b65.png"></p><p>创建实例：</p><p><img src="https://img.laoda.de/i/2023/07/19/10wgygv-0.webp" alt="1f331693624de7d3afb6c74212e785b9.png"></p><p>输入名称：</p><p><img src="https://img.laoda.de/i/2023/07/19/10wiapn-0.webp" alt="6cfd3d5ecad6d7a995d653d6d2f23c48.png"></p><p>选择系统：</p><p><img src="https://img.laoda.de/i/2023/07/19/10wkpgg-0.webp" alt="a8e3e0ba03287d2dbfb0676de8778316.png"></p><p>打开<code>22</code>、<code>80</code>、<code>443</code>端口：</p><p><img src="https://img.laoda.de/i/2023/07/19/10wlpkr-0.webp" alt="9f49cf1bf1bd666895b1f4b56e6b57fe.png"></p><p>修改硬盘大小：</p><p><img src="https://img.laoda.de/i/2023/07/19/10wvluk-0.webp" alt="1d90fc5f95ec2db36bbce5438f4703ba.png"> </p><p>启动实例失败，需要我们创建一个密钥对：</p><p><img src="https://img.laoda.de/i/2023/07/19/10wwvdi-0.webp" alt="de088cbcc6a9fd7008bef38acb241a5e.png"></p><img src="https://img.laoda.de/i/2023/07/19/10wybtd-0.webp" alt="b1067d9e84116a9eacf9ea05e4ea2ad3.png" style="zoom:33%;" /><p>再次启动实例：</p><img src="https://img.laoda.de/i/2023/07/19/10x04g2-0.webp" alt="a37dbccb9e3c3338ca3e036509a0e79f.png" style="zoom:33%;" /><img src="https://img.laoda.de/i/2023/07/19/10x1vtf-0.webp" alt="e3767553bf2908ccc8dcf8bb86e41eec.png" style="zoom:33%;" /><img src="https://img.laoda.de/i/2023/07/19/10x3gyw-0.webp" alt="df8ede3760eee791cf9fa7ca22974e98.png" style="zoom:33%;" /><p>连接服务器：</p><img src="https://img.laoda.de/i/2023/07/19/10x54lb-0.webp" alt="8370b0de6fdba51d82a7d5201b89fe20.png" style="zoom:33%;" /><img src="https://img.laoda.de/i/2023/07/19/10x6if8-0.webp" alt="9754a9c6fab6875769d9229495dd5481.png" style="zoom:33%;" /><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">chmod</span> 400 密钥地址</span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh -i 密钥位置 admin@ip</span><br></pre></td></tr></table></figure><p>即可登录。</p><img src="https://img.laoda.de/i/2023/07/19/10x88my-0.webp" alt="d1a5f5fb28805e4c0cb7faa98c09f5c0.png" style="zoom:33%;" /><h2 id="DD一个干净的Debian-11"><a href="#DD一个干净的Debian-11" class="headerlink" title="DD一个干净的Debian 11"></a>DD一个干净的Debian 11</h2><p>默认的登录方式其实是最安全的，但是对我们来说难免太不方便了，我们希望可以随时随地用密钥登录，这边我们就来完全重装一下这台机器的系统吧。</p><p>dd 脚本（大概5-10分钟）</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bash &lt;(wget --no-check-certificate -qO- <span class="string">&#x27;https://raw.githubusercontent.com/MoeClub/Note/master/InstallNET.sh&#x27;</span>) -d 10 -v 64 -p <span class="string">&quot;自定义root密码&quot;</span> -port <span class="string">&quot;自定义ssh端口&quot;</span></span><br></pre></td></tr></table></figure><p>这边我的dd脚本是这样的：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bash &lt;(wget --no-check-certificate -qO- <span class="string">&#x27;https://raw.githubusercontent.com/MoeClub/Note/master/InstallNET.sh&#x27;</span>) -d 10 -v 64 -p <span class="string">&quot;password123&quot;</span> -port <span class="string">&quot;222&quot;</span></span><br></pre></td></tr></table></figure><p>我把密码改成了<code>password123</code>，SSH端口改成了<code>222</code></p><p>直接输入到命令行即可。</p><h2 id="AWS-开启后台端口的方法"><a href="#AWS-开启后台端口的方法" class="headerlink" title="AWS 开启后台端口的方法"></a>AWS 开启后台端口的方法</h2><p>默认我们的这台机器只开了22端口（我们视频里也勾选了80、443端口）</p><p>所以现在总共只打开了三个端口，我们还需要开启<code>222</code>端口，不然一会儿SSH连接不上。</p><p>这边我们尝试开启<code>222</code>端口。</p><img src="https://img.laoda.de/i/2023/07/19/10xityv-0.webp" alt="aa27bc877189bfa406ed75f1735b4338.png" style="zoom:33%;" /><img src="https://img.laoda.de/i/2023/07/19/10xk07i-0.webp" alt="144f461d39264ba6c24b52b745431063.png" style="zoom:33%;" /><img src="https://img.laoda.de/i/2023/07/19/10xlhrf-0.webp" alt="49ec2f94666cef05c6c7528b55482c7a.png" style="zoom:33%;" /><img src="https://img.laoda.de/i/2023/07/19/10xmzmx-0.webp" alt="078eac72fa962f787e6d4c2db2601b33.png" style="zoom:33%;" /><img src="https://img.laoda.de/i/2023/07/19/10xoe1m-0.webp" alt="123a36565da4b5ee0513e2a4d16d8841.png" style="zoom:33%;" /><img src="https://img.laoda.de/i/2023/07/19/10xpxss-0.webp" alt="2fae84dc62654a8a2420eb26dca2d8dc.png" style="zoom:33%;" /><img src="https://img.laoda.de/i/2023/07/19/10xr52a-0.webp" alt="940357987a82d82f77554bcbdd3e3060.png" style="zoom:33%;" /><p>开启之后，我们尝试登录机器。</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh root@ip -p 222</span><br></pre></td></tr></table></figure><p>成功登录！</p><img src="https://img.laoda.de/i/2023/07/19/10xslee-0.webp" alt="0472055b9aa4ee416dd36d594dda8f02.png" style="zoom:33%;" /><p>好了，现在你就有一台干净系统的机器啦，下一期我们介绍一下如何在这个机器上装一个好玩儿的Docker项目，在这个免费使用的12个月里面好好折腾它！</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;https://img.laoda.de/i/2023/08/03/dy68sc-0.webp&quot; alt=&quot;54f5c741679d226ad992c348d6bcca2e.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;几乎每个大厂都可以免费体验一定时长的云服务，比如GCP</summary>
+      
+    
+    
+    
+    <category term="VPS推荐" scheme="https://blog.laoda.de/categories/VPS%E6%8E%A8%E8%8D%90/"/>
+    
+    <category term="AWS" scheme="https://blog.laoda.de/categories/VPS%E6%8E%A8%E8%8D%90/AWS/"/>
+    
+    <category term="亚马逊云服务" scheme="https://blog.laoda.de/categories/VPS%E6%8E%A8%E8%8D%90/AWS/%E4%BA%9A%E9%A9%AC%E9%80%8A%E4%BA%91%E6%9C%8D%E5%8A%A1/"/>
+    
+    <category term="EC2" scheme="https://blog.laoda.de/categories/VPS%E6%8E%A8%E8%8D%90/AWS/%E4%BA%9A%E9%A9%AC%E9%80%8A%E4%BA%91%E6%9C%8D%E5%8A%A1/EC2/"/>
+    
+    <category term="免费服务器" scheme="https://blog.laoda.de/categories/VPS%E6%8E%A8%E8%8D%90/AWS/%E4%BA%9A%E9%A9%AC%E9%80%8A%E4%BA%91%E6%9C%8D%E5%8A%A1/EC2/%E5%85%8D%E8%B4%B9%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    
+    <category term="新加坡服务器" scheme="https://blog.laoda.de/categories/VPS%E6%8E%A8%E8%8D%90/AWS/%E4%BA%9A%E9%A9%AC%E9%80%8A%E4%BA%91%E6%9C%8D%E5%8A%A1/EC2/%E5%85%8D%E8%B4%B9%E6%9C%8D%E5%8A%A1%E5%99%A8/%E6%96%B0%E5%8A%A0%E5%9D%A1%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    
+    <category term="亚太服务器" scheme="https://blog.laoda.de/categories/VPS%E6%8E%A8%E8%8D%90/AWS/%E4%BA%9A%E9%A9%AC%E9%80%8A%E4%BA%91%E6%9C%8D%E5%8A%A1/EC2/%E5%85%8D%E8%B4%B9%E6%9C%8D%E5%8A%A1%E5%99%A8/%E6%96%B0%E5%8A%A0%E5%9D%A1%E6%9C%8D%E5%8A%A1%E5%99%A8/%E4%BA%9A%E5%A4%AA%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    
+    <category term="低延迟" scheme="https://blog.laoda.de/categories/VPS%E6%8E%A8%E8%8D%90/AWS/%E4%BA%9A%E9%A9%AC%E9%80%8A%E4%BA%91%E6%9C%8D%E5%8A%A1/EC2/%E5%85%8D%E8%B4%B9%E6%9C%8D%E5%8A%A1%E5%99%A8/%E6%96%B0%E5%8A%A0%E5%9D%A1%E6%9C%8D%E5%8A%A1%E5%99%A8/%E4%BA%9A%E5%A4%AA%E6%9C%8D%E5%8A%A1%E5%99%A8/%E4%BD%8E%E5%BB%B6%E8%BF%9F/"/>
+    
+    <category term="DD新系统" scheme="https://blog.laoda.de/categories/VPS%E6%8E%A8%E8%8D%90/AWS/%E4%BA%9A%E9%A9%AC%E9%80%8A%E4%BA%91%E6%9C%8D%E5%8A%A1/EC2/%E5%85%8D%E8%B4%B9%E6%9C%8D%E5%8A%A1%E5%99%A8/%E6%96%B0%E5%8A%A0%E5%9D%A1%E6%9C%8D%E5%8A%A1%E5%99%A8/%E4%BA%9A%E5%A4%AA%E6%9C%8D%E5%8A%A1%E5%99%A8/%E4%BD%8E%E5%BB%B6%E8%BF%9F/DD%E6%96%B0%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+    <category term="AWS" scheme="https://blog.laoda.de/tags/AWS/"/>
+    
+    <category term="亚马逊云服务" scheme="https://blog.laoda.de/tags/%E4%BA%9A%E9%A9%AC%E9%80%8A%E4%BA%91%E6%9C%8D%E5%8A%A1/"/>
+    
+    <category term="EC2" scheme="https://blog.laoda.de/tags/EC2/"/>
+    
+    <category term="免费服务器" scheme="https://blog.laoda.de/tags/%E5%85%8D%E8%B4%B9%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    
+    <category term="新加坡服务器" scheme="https://blog.laoda.de/tags/%E6%96%B0%E5%8A%A0%E5%9D%A1%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    
+    <category term="亚太服务器" scheme="https://blog.laoda.de/tags/%E4%BA%9A%E5%A4%AA%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    
+    <category term="低延迟" scheme="https://blog.laoda.de/tags/%E4%BD%8E%E5%BB%B6%E8%BF%9F/"/>
+    
+    <category term="DD新系统" scheme="https://blog.laoda.de/tags/DD%E6%96%B0%E7%B3%BB%E7%BB%9F/"/>
+    
+  </entry>
   
   <entry>
     <title>【好玩儿的Docker项目】80、90回忆杀，10分钟搭建复古中文 DOS 游戏，最多畅玩1898款！</title>
@@ -562,34 +617,6 @@
     <category term="LittleLink" scheme="https://blog.laoda.de/tags/LittleLink/"/>
     
     <category term="个人主页" scheme="https://blog.laoda.de/tags/%E4%B8%AA%E4%BA%BA%E4%B8%BB%E9%A1%B5/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【VPS选购经验分享】CN2 GIA+9929优化线路，V.PS新鸡荷兰阿姆斯特丹 Ryzen 7950x Mini VPS，年付39.95欧元！</title>
-    <link href="https://blog.laoda.de/archives/vps-hosting/"/>
-    <id>https://blog.laoda.de/archives/vps-hosting/</id>
-    <published>2023-04-02T15:56:37.551Z</published>
-    <updated>2023-08-01T12:44:02.120Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="https://img.laoda.de/i/2023/04/02/12x8kcw-0.webp" alt="image-20230402235353291"></p><p>V.PS 是 xTom 旗下的一个 VPS 商家。</p><p>xTom是一家在德国境内成立的私人控股的服务器托管公司。 拥有全球各地数个数据中心，包括法兰克福，阿姆斯特丹，香港，东京，大坂，弗里蒙特，纽约和悉尼，这些数据中心拥有优质带宽，如Level 3，Telia，NTT和中国电信。xTom是德国最受欢迎的网络服务商之一。</p><p><a href="https://vps.hosting/?affid=985">V.PS</a>新上架荷兰阿姆斯特丹 Ryzen 7950x Mini VPS，线路为CN2 GIA + 9929 优化线路，CPU单核跑分2000+，共有2个套餐，mini和mini plus，最低配mini vps，年付39.95欧元。</p><p>CPU加线路看起来非常不错，咕咕也入手了一台，给大家试试水～</p><p><img src="https://img.laoda.de/i/2023/04/02/12x2844-0.webp" alt="image-20230402235316979"></p><h2 id="1-官网"><a href="#1-官网" class="headerlink" title="1. 官网"></a>1. 官网</h2><p><strong>网址：<a href="https://vps.hosting/?affid=985">https://v.ps</a></strong></p><blockquote><p>注意：</p><p>注册新账号的话需要使用真实点的信息，要不不能用PayPal。</p><p>这家退款政策严格：账号只能退1次，并且必须购买＜14天，流量没超10G等</p></blockquote><p>咕咕就被判定欺诈了 &#x3D; &#x3D;</p><p>咕咕去邮箱里点击验证账号，</p><img src="https://img.laoda.de/i/2023/04/03/2ou5o-0.webp" alt="image-20230403000450494" style="zoom:50%;" /><p>然后用的支付宝付款的 &#x3D; &#x3D;</p><h2 id="2-荷兰mini套餐"><a href="#2-荷兰mini套餐" class="headerlink" title="2. 荷兰mini套餐"></a>2. 荷兰mini套餐</h2><p>特征：KVM虚拟，SSD RAID10阵列，1Gbps带宽，自带一个IPv4，CN2 GIA+9929优化线路</p><table><thead><tr><th><strong>内存</strong></th><th><strong>CPU</strong></th><th><strong>SSD</strong></th><th><strong>带宽@流量</strong></th><th><strong>价格</strong></th><th><strong>购买</strong></th></tr></thead><tbody><tr><td>1G</td><td>1核</td><td>15G</td><td>1G@1T</td><td>€39.95&#x2F;年</td><td><strong><a href="https://vps.hosting/cart/?cmd=cart&action=add&id=196&aff=985">链接</a></strong></td></tr><tr><td>2G</td><td>1核</td><td>20G</td><td>1G@2T</td><td>€49.95&#x2F;年</td><td><strong><a href="https://vps.hosting/?cmd=cart&action=add&id=197&aff=985">链接</a></strong></td></tr></tbody></table><p>咕咕买的是€39.95&#x2F;年这款。</p><h2 id="3-VPS测试"><a href="#3-VPS测试" class="headerlink" title="3. VPS测试"></a>3. VPS测试</h2><h3 id="3-1-基本情况"><a href="#3-1-基本情况" class="headerlink" title="3.1 基本情况"></a>3.1 基本情况</h3><p><img src="https://img.laoda.de/i/2023/04/02/12swerr-0.webp" alt="image-20230402234617613"></p><h3 id="3-2-速度测试"><a href="#3-2-速度测试" class="headerlink" title="3.2 速度测试"></a>3.2 速度测试</h3><p><img src="https://img.laoda.de/i/2023/04/02/12srhlg-0.webp" alt="image-20230402234559505"></p><h3 id="3-3-回程线路"><a href="#3-3-回程线路" class="headerlink" title="3.3 回程线路"></a>3.3 回程线路</h3><h4 id="上海电信"><a href="#上海电信" class="headerlink" title="上海电信"></a>上海电信</h4><p>回程CN2 GIA，非常舒服。</p><p><img src="https://img.laoda.de/i/2023/04/02/12t0fei-0.webp" alt="image-20230402234639998"></p><h4 id="上海联通"><a href="#上海联通" class="headerlink" title="上海联通"></a>上海联通</h4><p>回程联通AS9929。</p><p><img src="https://img.laoda.de/i/2023/04/02/12tds6s-0.webp" alt="image-20230402234702506"></p><h4 id="上海移动"><a href="#上海移动" class="headerlink" title="上海移动"></a>上海移动</h4><p>通过走联通4837，再走移动自己的线路。</p><p><img src="https://img.laoda.de/i/2023/04/02/12tgm4f-0.webp" alt="image-20230402234715405"></p><h4 id="北京教育网"><a href="#北京教育网" class="headerlink" title="北京教育网"></a>北京教育网</h4><p>走联通9929回国。</p><p><img src="https://img.laoda.de/i/2023/04/02/12to0in-0.webp" alt="image-20230402234746736"></p><p>Share result:<br> · <a href="https://www.speedtest.net/result/c/fdc6a788-25f4-4821-bf97-0c69aca736c3">https://www.speedtest.net/result/c/fdc6a788-25f4-4821-bf97-0c69aca736c3</a><br> · <a href="https://paste.ubuntu.com/p/2Yw3tJbG99/">https://paste.ubuntu.com/p/2Yw3tJbG99/</a></p><h3 id="3-4-PING值"><a href="#3-4-PING值" class="headerlink" title="3.4 PING值"></a>3.4 PING值</h3><p>荷兰，这个ping值可以的。</p><p><img src="https://img.laoda.de/i/2023/04/02/12v8eib-0.webp" alt="image-20230402235015011"></p><p><img src="https://img.laoda.de/i/2023/04/02/12vaqmg-0.webp" alt="image-20230402235026578"></p><h3 id="3-5-网络测试"><a href="#3-5-网络测试" class="headerlink" title="3.5 网络测试"></a>3.5 网络测试</h3><p>晚上11点30分</p><p><img src="https://img.laoda.de/i/2023/04/02/12uuorl-0.webp" alt="image-20230402234945643"></p><p><img src="https://img.laoda.de/i/2023/04/02/12upbne-0.webp" alt="image-20230402234918698"></p><h2 id="4-其他"><a href="#4-其他" class="headerlink" title="4. 其他"></a>4. 其他</h2><h3 id="4-1-速度测试和-Looking-Glass（官方提供）"><a href="#4-1-速度测试和-Looking-Glass（官方提供）" class="headerlink" title="4.1 速度测试和 Looking Glass（官方提供）"></a>4.1 速度测试和 Looking Glass（官方提供）</h3><p>Test IPv4: 78.142.195.195</p><p>Test IPv6: 2a0c:59c0:12::10b</p><p>Test file: <a href="https://ams.lg.v.ps/100MB.test">https://ams.lg.v.ps/100MB.test</a></p><p>Looking glass: <a href="https://ams.lg.v.ps/">https://ams.lg.v.ps/</a></p><p>Speedtest: <a href="https://ams.speedtest.v.ps/">https://ams.speedtest.v.ps/</a></p><h3 id="4-2-YABS-Benchmark（官方提供）"><a href="#4-2-YABS-Benchmark（官方提供）" class="headerlink" title="4.2 YABS Benchmark（官方提供）"></a>4.2 YABS Benchmark（官方提供）</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Sun 02 Apr 2023 02:34:55 PM UTC</span><br><span class="line"></span><br><span class="line">Basic System Information:</span><br><span class="line">---------------------------------</span><br><span class="line">Uptime     : 0 days, 0 hours, 3 minutes</span><br><span class="line">Processor  : AMD Ryzen 9 7950X 16-Core Processor</span><br><span class="line">CPU cores  : 1 @ 4491.572 MHz</span><br><span class="line">AES-NI     : ✔ Enabled</span><br><span class="line">VM-x/AMD-V : ✔ Enabled</span><br><span class="line">RAM        : 1.9 GiB</span><br><span class="line">Swap       : 256.0 MiB</span><br><span class="line">Disk       : 19.6 GiB</span><br><span class="line">Distro     : Debian GNU/Linux 11 (bullseye)</span><br><span class="line">Kernel     : 5.10.0-21-cloud-amd64</span><br><span class="line">VM Type    : KVM</span><br><span class="line">Net Online : IPv4 &amp; IPv6</span><br><span class="line"></span><br><span class="line">IPv4 Network Information:</span><br><span class="line">---------------------------------</span><br><span class="line">ISP        : xTom GmbH</span><br><span class="line">ASN        : AS3214 xTom GmbH</span><br><span class="line">Host       : xTom</span><br><span class="line">Location   : Amsterdam, North Holland (NH)</span><br><span class="line">Country    : Netherlands</span><br><span class="line"></span><br><span class="line">fio Disk Speed Tests (Mixed R/W 50/50):</span><br><span class="line">---------------------------------</span><br><span class="line">Block Size | 4k            (IOPS) | 64k           (IOPS)</span><br><span class="line">  ------   | ---            ----  | ----           ----</span><br><span class="line">Read       | 102.65 MB/s  (25.6k) | 1.05 GB/s    (16.4k)</span><br><span class="line">Write      | 102.92 MB/s  (25.7k) | 1.05 GB/s    (16.5k)</span><br><span class="line">Total      | 205.58 MB/s  (51.3k) | 2.11 GB/s    (33.0k)</span><br><span class="line">           |                      |</span><br><span class="line">Block Size | 512k          (IOPS) | 1m            (IOPS)</span><br><span class="line">  ------   | ---            ----  | ----           ----</span><br><span class="line">Read       | 1.02 GB/s     (2.0k) | 1.01 GB/s      (990)</span><br><span class="line">Write      | 1.08 GB/s     (2.1k) | 1.08 GB/s     (1.0k)</span><br><span class="line">Total      | 2.10 GB/s     (4.1k) | 2.09 GB/s     (2.0k)</span><br><span class="line"></span><br><span class="line">Geekbench 5 Benchmark Test:</span><br><span class="line">---------------------------------</span><br><span class="line">Test            | Value</span><br><span class="line">                |</span><br><span class="line">Single Core     | 2195</span><br><span class="line">Multi Core      | 2259</span><br><span class="line">Full Test       | https://browser.geekbench.com/v5/cpu/20990976</span><br><span class="line"></span><br><span class="line">YABS completed <span class="keyword">in</span> 2 min 11 sec</span><br></pre></td></tr></table></figure><h2 id="5-总结"><a href="#5-总结" class="headerlink" title="5. 总结"></a>5. 总结</h2><p>还不错，咕咕会用一段时间，看看稳不稳定。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;&lt;img src=&quot;https://img.laoda.de/i/2023/04/02/12x8kcw-0.webp&quot; alt=&quot;image-20230402235353291&quot;&gt;&lt;/p&gt;
-&lt;p&gt;V.PS 是 xTom 旗下的一个 VPS 商家。&lt;/p&gt;
-&lt;p&gt;xTom是一</summary>
-      
-    
-    
-    
-    <category term="VPS推荐" scheme="https://blog.laoda.de/categories/VPS%E6%8E%A8%E8%8D%90/"/>
-    
-    
-    <category term="欧洲VPS" scheme="https://blog.laoda.de/tags/%E6%AC%A7%E6%B4%B2VPS/"/>
-    
-    <category term="xTom" scheme="https://blog.laoda.de/tags/xTom/"/>
     
   </entry>
   
