@@ -251,12 +251,12 @@
 
 <h2 id="DD一个干净的Debian-11"><a href="#DD一个干净的Debian-11" class="headerlink" title="DD一个干净的Debian 11"></a>DD一个干净的Debian 11</h2><p>默认的登录方式其实是最安全的，但是对我们来说难免太不方便了，我们希望可以随时随地用密钥登录，这边我们就来完全重装一下这台机器的系统吧。</p>
 <p>dd 脚本（大概5-10分钟）</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bash &lt;(wget --no-check-certificate -qO- <span class="string">&#x27;https://raw.githubusercontent.com/MoeClub/Note/master/InstallNET.sh&#x27;</span>) -d 10 -v 64 -p <span class="string">&quot;自定义root密码&quot;</span> -port <span class="string">&quot;自定义ssh端口&quot;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bash &lt;(wget --no-check-certificate -qO- <span class="string">&#x27;https://raw.githubusercontent.com/MoeClub/Note/master/InstallNET.sh&#x27;</span>) -d 11 -v 64 -p <span class="string">&quot;自定义root密码&quot;</span> -port <span class="string">&quot;自定义ssh端口&quot;</span></span><br></pre></td></tr></table></figure>
 
 
 
 <p>这边我的dd脚本是这样的：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bash &lt;(wget --no-check-certificate -qO- <span class="string">&#x27;https://raw.githubusercontent.com/MoeClub/Note/master/InstallNET.sh&#x27;</span>) -d 10 -v 64 -p <span class="string">&quot;password123&quot;</span> -port <span class="string">&quot;222&quot;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bash &lt;(wget --no-check-certificate -qO- <span class="string">&#x27;https://raw.githubusercontent.com/MoeClub/Note/master/InstallNET.sh&#x27;</span>) -d 11 -v 64 -p <span class="string">&quot;password123&quot;</span> -port <span class="string">&quot;222&quot;</span></span><br></pre></td></tr></table></figure>
 
 
 <p>我把密码改成了<code>password123</code>，SSH端口改成了<code>222</code></p>
