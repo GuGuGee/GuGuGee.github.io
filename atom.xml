@@ -6,7 +6,7 @@
   <link href="https://blog.laoda.de/atom.xml" rel="self"/>
   
   <link href="https://blog.laoda.de/"/>
-  <updated>2023-09-09T12:35:38.670Z</updated>
+  <updated>2023-09-09T13:22:58.341Z</updated>
   <id>https://blog.laoda.de/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="https://blog.laoda.de/archives/cloudflare-tunnel/"/>
     <id>https://blog.laoda.de/archives/cloudflare-tunnel/</id>
     <published>2023-09-09T12:18:19.000Z</published>
-    <updated>2023-09-09T12:35:38.670Z</updated>
+    <updated>2023-09-09T13:22:58.341Z</updated>
     
-    <content type="html"><![CDATA[<p>利用这个方法，可以让你在局域网（尤其是NAS）上搭建的web应用支持公网访问，成本低而且操作简单！</p><p>如果是博客的话还可以有效防止DDOS攻击！</p><blockquote><p>对于联通用户可能不太友好，据咕咕所知很多地区联通用户访问不了Cloudflare的节点</p></blockquote><h2 id="1-视频"><a href="#1-视频" class="headerlink" title="1. 视频"></a>1. 视频</h2><p>文字比较简略，强烈建议搭配视频食用！</p><p>YouTube：<a href="https://youtu.be/Q_xB3433WTg">https://youtu.be/Q_xB3433WTg</a></p><p>哔哩哔哩：<a href="https://www.bilibili.com/video/BV1pj411C78j/">https://www.bilibili.com/video/BV1pj411C78j/</a></p><h2 id="2-准备工作"><a href="#2-准备工作" class="headerlink" title="2. 准备工作"></a>2. 准备工作</h2><ul><li>一个域名（推荐<a href="https://loll/cc.ns">Namesilo</a>注册，输入优惠码<code>laodade</code>或者<code>gugugee</code>可以便宜1美元）</li><li>一张外币信用卡或者PayPal</li></ul><h2 id="3-配置域名"><a href="#3-配置域名" class="headerlink" title="3. 配置域名"></a>3. 配置域名</h2><h3 id="3-1-注册Namesilo"><a href="#3-1-注册Namesilo" class="headerlink" title="3.1 注册Namesilo"></a>3.1 注册Namesilo</h3><p><img src="https://img.laoda.de/i/2023/09/09/vq76zf-0.webp" alt="fea8081ce89bea90ea01ef29cd2fce7a.png"></p><h3 id="3-2-注册CloudFlare"><a href="#3-2-注册CloudFlare" class="headerlink" title="3.2 注册CloudFlare"></a>3.2 注册CloudFlare</h3><p><img src="https://img.laoda.de/i/2023/09/09/vr7bz2-0.webp" alt="ab221202a98a188093d1ed8bf1630f5c.png"></p><h3 id="3-3-更换DNS解析"><a href="#3-3-更换DNS解析" class="headerlink" title="3.3 更换DNS解析"></a>3.3 更换DNS解析</h3><p><img src="https://img.laoda.de/i/2023/09/09/w1lfqa-0.webp" alt="image-20230909193757157"></p><h2 id="4-开通CloudFlare-Tunnel"><a href="#4-开通CloudFlare-Tunnel" class="headerlink" title="4. 开通CloudFlare Tunnel"></a>4. 开通CloudFlare Tunnel</h2><h2 id="5-群晖配置Cloudflared"><a href="#5-群晖配置Cloudflared" class="headerlink" title="5. 群晖配置Cloudflared"></a>5. 群晖配置Cloudflared</h2><h3 id="5-1-使用图形化界面安装Cloudflared"><a href="#5-1-使用图形化界面安装Cloudflared" class="headerlink" title="5.1 使用图形化界面安装Cloudflared"></a>5.1 使用图形化界面安装Cloudflared</h3><p><img src="https://img.laoda.de/i/2023/09/09/vszu81-0.webp" alt="image-20230909192313776"></p><p><img src="https://img.laoda.de/i/2023/09/09/vt5hum-0.webp" alt="image-20230909192339730"></p><p><img src="https://img.laoda.de/i/2023/09/09/vtlx6v-0.webp" alt="image-20230909192415905"></p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker run -d --restart=always cloudflare/cloudflared:latest tunnel --no-autoupdate run --token eyJhIjoiNGQ4ZGY0ZjVjODJjYmY0MmUwNjg3NmRmZWZmZmZlODIieLCJ0IjoiODY3YjgzNGMtNWFkYy00O0TI3LTkyN2MtYmQyNWUzYzk5MTUyIiwicyI6Ik1EVmpaalEwT0RVdE1URmlPUzAwTW1JeExUZ3wlOVGNr0TjJFeU9EZzFNV1kxTTJNMyJ9</span><br></pre></td></tr></table></figure><p>命令填：<code>tunnel run --token eyJhIjoiNGQ4ZGY0ZjVjODJjYmY0MmUwNjg3NmRmZWZmZmZlODIieLCJ0IjoiODY3YjgzNGMtNWFkYy00O0TI3LTkyN2MtYmQyNWUzYzk5MTUyIiwicyI6Ik1EVmpaalEwT0RVdE1URmlPUzAwTW1JeExUZ3wlOVGNr0TjJFeU9EZzFNV1kxTTJNMyJ9</code>即可。</p><h3 id="5-2-使用命令行安装Cloudflared（推荐）"><a href="#5-2-使用命令行安装Cloudflared（推荐）" class="headerlink" title="5.2 使用命令行安装Cloudflared（推荐）"></a>5.2 使用命令行安装Cloudflared（推荐）</h3><h4 id="5-2-1-打开SSH"><a href="#5-2-1-打开SSH" class="headerlink" title="5.2.1 打开SSH"></a>5.2.1 打开SSH</h4><p><img src="https://img.laoda.de/i/2023/09/09/vrewat-0.webp" alt="f319dbbe140bba2de1c8672eb28adea3.png"></p><h4 id="5-2-2-运行"><a href="#5-2-2-运行" class="headerlink" title="5.2.2 运行"></a>5.2.2 运行</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker run -d --restart=always cloudflare/cloudflared:latest tunnel --no-autoupdate run --token eyJhIjoiNGQ4ZGY0ZjVjODJjYmY0MmUwNjg3NmRmZWZmZmZlODIieLCJ0IjoiODY3YjgzNGMtNWFkYy00O0TI3LTkyN2MtYmQyNWUzYzk5MTUyIiwicyI6Ik1EVmpaalEwT0RVdE1URmlPUzAwTW1JeExUZ3wlOVGNr0TjJFeU9EZzFNV1kxTTJNMyJ9</span><br></pre></td></tr></table></figure><p>这条命令的完整解释如下：</p><ul><li><p><code>docker run</code>: 这是用来启动一个新容器的命令。</p></li><li><p><code>-d</code>: 这个选项让 Docker 在后台运行这个容器，并且返回容器 ID。</p></li><li><p><code>--restart=always</code>: 如上所述，这将设置容器的重启策略为始终重启。</p></li><li><p><code>cloudflare/cloudflared:latest</code>: 这是你想运行的 Docker 镜像。具体来说，你正在运行 Cloudflare 的 <code>cloudflared</code> 镜像的最新版本。</p></li><li><p><code>tunnel --no-autoupdate run --token eyJhI...J9</code>: 这些是传递给 <code>cloudflared</code> 镜像的参数，用于配置和运行你的 tunnel。</p></li></ul><p>这条命令将启动一个新的 <code>cloudflared</code> 容器，这个容器将始终在后台运行，并在停止后自动重新启动。</p><h2 id="6-CF后台配置"><a href="#6-CF后台配置" class="headerlink" title="6. CF后台配置"></a>6. CF后台配置</h2><p><img src="https://img.laoda.de/i/2023/09/09/w6c4s4-0.webp" alt="tunnel-0001"></p><p><img src="https://img.laoda.de/i/2023/09/09/w6o85h-0.webp" alt="tunnel-0003"></p><p><img src="https://img.laoda.de/i/2023/09/09/w6u68w-0.webp" alt="tunnel-0004"></p><p><img src="https://img.laoda.de/i/2023/09/09/w6wb6z-0.webp" alt="tunnel-0005"></p><p><img src="https://img.laoda.de/i/2023/09/09/w78iec-0.webp" alt="tunnel-0006"></p><p><img src="https://img.laoda.de/i/2023/09/09/w7b09s-0.webp" alt="tunnel-0007"></p><h2 id="7-添加额外认证"><a href="#7-添加额外认证" class="headerlink" title="7. 添加额外认证"></a>7. 添加额外认证</h2><p><img src="https://img.laoda.de/i/2023/09/09/w7e4k8-0.webp" alt="tunnel-0008"></p><p><img src="https://img.laoda.de/i/2023/09/09/w7ifp5-0.webp" alt="tunnel-0009"></p><p><img src="https://img.laoda.de/i/2023/09/09/w7suox-0.webp" alt="tunnel-0011"></p><p><img src="https://img.laoda.de/i/2023/09/09/w7uoar-0.webp" alt="tunnel-0012"></p><p><img src="https://img.laoda.de/i/2023/09/09/w7wkpv-0.webp" alt="tunnel-0013"></p><p><img src="https://img.laoda.de/i/2023/09/09/w8195d-0.webp" alt="tunnel-0017"></p>]]></content>
+    <content type="html"><![CDATA[<p>利用这个方法，可以让你在局域网（尤其是NAS）上搭建的web应用支持公网访问，成本低而且操作简单！</p><p>如果是博客的话还可以有效防止DDOS攻击！</p><blockquote><p>对于联通用户可能不太友好，据咕咕所知很多地区联通用户访问不了Cloudflare的节点</p></blockquote><h2 id="1-视频"><a href="#1-视频" class="headerlink" title="1. 视频"></a>1. 视频</h2><p>文字比较简略，强烈建议搭配视频食用！</p><p>YouTube：<a href="https://youtu.be/Q_xB3433WTg">https://youtu.be/Q_xB3433WTg</a></p><p>哔哩哔哩：<a href="https://www.bilibili.com/video/BV1pj411C78j/">https://www.bilibili.com/video/BV1pj411C78j/</a></p><h2 id="2-准备工作"><a href="#2-准备工作" class="headerlink" title="2. 准备工作"></a>2. 准备工作</h2><ul><li>一个域名（推荐<a href="https://loll/cc.ns">Namesilo</a>注册，输入优惠码<code>laodade</code>或者<code>gugugee</code>可以便宜1美元）</li><li>一张外币信用卡或者PayPal</li></ul><h2 id="3-配置域名"><a href="#3-配置域名" class="headerlink" title="3. 配置域名"></a>3. 配置域名</h2><h3 id="3-1-注册Namesilo"><a href="#3-1-注册Namesilo" class="headerlink" title="3.1 注册Namesilo"></a>3.1 注册Namesilo</h3><p><img src="https://img.laoda.de/i/2023/09/09/vq76zf-0.webp" alt="fea8081ce89bea90ea01ef29cd2fce7a.png"></p><h3 id="3-2-注册CloudFlare"><a href="#3-2-注册CloudFlare" class="headerlink" title="3.2 注册CloudFlare"></a>3.2 注册CloudFlare</h3><p><img src="https://img.laoda.de/i/2023/09/09/vr7bz2-0.webp" alt="ab221202a98a188093d1ed8bf1630f5c.png"></p><h3 id="3-3-更换DNS解析"><a href="#3-3-更换DNS解析" class="headerlink" title="3.3 更换DNS解析"></a>3.3 更换DNS解析</h3><p><img src="https://img.laoda.de/i/2023/09/09/w1lfqa-0.webp" alt="image-20230909193757157"></p><h2 id="4-开通CloudFlare-Tunnel"><a href="#4-开通CloudFlare-Tunnel" class="headerlink" title="4. 开通CloudFlare Tunnel"></a>4. 开通CloudFlare Tunnel</h2><p>绑定一个支付方式，实际CF并不会扣钱。</p><p><img src="https://img.laoda.de/i/2023/09/09/xrzzrt-0.webp" alt="2023-09-09-0002"></p><h2 id="5-群晖配置Cloudflared"><a href="#5-群晖配置Cloudflared" class="headerlink" title="5. 群晖配置Cloudflared"></a>5. 群晖配置Cloudflared</h2><h3 id="5-1-使用图形化界面安装Cloudflared"><a href="#5-1-使用图形化界面安装Cloudflared" class="headerlink" title="5.1 使用图形化界面安装Cloudflared"></a>5.1 使用图形化界面安装Cloudflared</h3><p><img src="https://img.laoda.de/i/2023/09/09/vszu81-0.webp" alt="image-20230909192313776"></p><p><img src="https://img.laoda.de/i/2023/09/09/vt5hum-0.webp" alt="image-20230909192339730"></p><p><img src="https://img.laoda.de/i/2023/09/09/vtlx6v-0.webp" alt="image-20230909192415905"></p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker run -d --restart=always cloudflare/cloudflared:latest tunnel --no-autoupdate run --token eyJhIjoiNGQ4ZGY0ZjVjODJjYmY0MmUwNjg3NmRmZWZmZmZlODIieLCJ0IjoiODY3YjgzNGMtNWFkYy00O0TI3LTkyN2MtYmQyNWUzYzk5MTUyIiwicyI6Ik1EVmpaalEwT0RVdE1URmlPUzAwTW1JeExUZ3wlOVGNr0TjJFeU9EZzFNV1kxTTJNMyJ9</span><br></pre></td></tr></table></figure><p>命令填：<code>tunnel run --token eyJhIjoiNGQ4ZGY0ZjVjODJjYmY0MmUwNjg3NmRmZWZmZmZlODIieLCJ0IjoiODY3YjgzNGMtNWFkYy00O0TI3LTkyN2MtYmQyNWUzYzk5MTUyIiwicyI6Ik1EVmpaalEwT0RVdE1URmlPUzAwTW1JeExUZ3wlOVGNr0TjJFeU9EZzFNV1kxTTJNMyJ9</code>即可。</p><h3 id="5-2-使用命令行安装Cloudflared（推荐）"><a href="#5-2-使用命令行安装Cloudflared（推荐）" class="headerlink" title="5.2 使用命令行安装Cloudflared（推荐）"></a>5.2 使用命令行安装Cloudflared（推荐）</h3><h4 id="5-2-1-打开SSH"><a href="#5-2-1-打开SSH" class="headerlink" title="5.2.1 打开SSH"></a>5.2.1 打开SSH</h4><p><img src="https://img.laoda.de/i/2023/09/09/vrewat-0.webp" alt="f319dbbe140bba2de1c8672eb28adea3.png"></p><h4 id="5-2-2-运行"><a href="#5-2-2-运行" class="headerlink" title="5.2.2 运行"></a>5.2.2 运行</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker run -d --restart=always cloudflare/cloudflared:latest tunnel --no-autoupdate run --token eyJhIjoiNGQ4ZGY0ZjVjODJjYmY0MmUwNjg3NmRmZWZmZmZlODIieLCJ0IjoiODY3YjgzNGMtNWFkYy00O0TI3LTkyN2MtYmQyNWUzYzk5MTUyIiwicyI6Ik1EVmpaalEwT0RVdE1URmlPUzAwTW1JeExUZ3wlOVGNr0TjJFeU9EZzFNV1kxTTJNMyJ9</span><br></pre></td></tr></table></figure><p>这条命令的完整解释如下：</p><ul><li><p><code>docker run</code>: 这是用来启动一个新容器的命令。</p></li><li><p><code>-d</code>: 这个选项让 Docker 在后台运行这个容器，并且返回容器 ID。</p></li><li><p><code>--restart=always</code>: 如上所述，这将设置容器的重启策略为始终重启。</p></li><li><p><code>cloudflare/cloudflared:latest</code>: 这是你想运行的 Docker 镜像。具体来说，你正在运行 Cloudflare 的 <code>cloudflared</code> 镜像的最新版本。</p></li><li><p><code>tunnel --no-autoupdate run --token eyJhI...J9</code>: 这些是传递给 <code>cloudflared</code> 镜像的参数，用于配置和运行你的 tunnel。</p></li></ul><p>这条命令将启动一个新的 <code>cloudflared</code> 容器，这个容器将始终在后台运行，并在停止后自动重新启动。</p><h2 id="6-CF后台配置"><a href="#6-CF后台配置" class="headerlink" title="6. CF后台配置"></a>6. CF后台配置</h2><p><img src="https://img.laoda.de/i/2023/09/09/w6c4s4-0.webp" alt="tunnel-0001"></p><p><img src="https://img.laoda.de/i/2023/09/09/w6o85h-0.webp" alt="tunnel-0003"></p><p><img src="https://img.laoda.de/i/2023/09/09/w6u68w-0.webp" alt="tunnel-0004"></p><p><img src="https://img.laoda.de/i/2023/09/09/w6wb6z-0.webp" alt="tunnel-0005"></p><p><img src="https://img.laoda.de/i/2023/09/09/w78iec-0.webp" alt="tunnel-0006"></p><p><img src="https://img.laoda.de/i/2023/09/09/w7b09s-0.webp" alt="tunnel-0007"></p><h2 id="7-添加额外认证"><a href="#7-添加额外认证" class="headerlink" title="7. 添加额外认证"></a>7. 添加额外认证</h2><p><img src="https://img.laoda.de/i/2023/09/09/w7e4k8-0.webp" alt="tunnel-0008"></p><p><img src="https://img.laoda.de/i/2023/09/09/w7ifp5-0.webp" alt="tunnel-0009"></p><p><img src="https://img.laoda.de/i/2023/09/09/w7suox-0.webp" alt="tunnel-0011"></p><p><img src="https://img.laoda.de/i/2023/09/09/w7uoar-0.webp" alt="tunnel-0012"></p><p><img src="https://img.laoda.de/i/2023/09/09/w7wkpv-0.webp" alt="tunnel-0013"></p><p><img src="https://img.laoda.de/i/2023/09/09/w8195d-0.webp" alt="tunnel-0017"></p>]]></content>
     
     
       
@@ -65,9 +65,9 @@
     <category term="Docker系列" scheme="https://blog.laoda.de/categories/Docker%E7%B3%BB%E5%88%97/"/>
     
     
-    <category term="Docker部署" scheme="https://blog.laoda.de/tags/Docker%E9%83%A8%E7%BD%B2/"/>
-    
     <category term="DockerCompose" scheme="https://blog.laoda.de/tags/DockerCompose/"/>
+    
+    <category term="Docker部署" scheme="https://blog.laoda.de/tags/Docker%E9%83%A8%E7%BD%B2/"/>
     
     <category term="Nextcloud" scheme="https://blog.laoda.de/tags/Nextcloud/"/>
     
@@ -190,9 +190,9 @@
     <category term="Docker系列" scheme="https://blog.laoda.de/categories/Docker%E7%B3%BB%E5%88%97/"/>
     
     
-    <category term="Docker部署" scheme="https://blog.laoda.de/tags/Docker%E9%83%A8%E7%BD%B2/"/>
-    
     <category term="DockerCompose" scheme="https://blog.laoda.de/tags/DockerCompose/"/>
+    
+    <category term="Docker部署" scheme="https://blog.laoda.de/tags/Docker%E9%83%A8%E7%BD%B2/"/>
     
     <category term="DOS 游戏" scheme="https://blog.laoda.de/tags/DOS-%E6%B8%B8%E6%88%8F/"/>
     
@@ -220,9 +220,9 @@
     <category term="Docker系列" scheme="https://blog.laoda.de/categories/Docker%E7%B3%BB%E5%88%97/"/>
     
     
-    <category term="Docker部署" scheme="https://blog.laoda.de/tags/Docker%E9%83%A8%E7%BD%B2/"/>
-    
     <category term="DockerCompose" scheme="https://blog.laoda.de/tags/DockerCompose/"/>
+    
+    <category term="Docker部署" scheme="https://blog.laoda.de/tags/Docker%E9%83%A8%E7%BD%B2/"/>
     
     <category term="paste" scheme="https://blog.laoda.de/tags/paste/"/>
     
@@ -277,9 +277,9 @@
     <category term="Docker系列" scheme="https://blog.laoda.de/categories/Docker%E7%B3%BB%E5%88%97/"/>
     
     
-    <category term="Docker部署" scheme="https://blog.laoda.de/tags/Docker%E9%83%A8%E7%BD%B2/"/>
-    
     <category term="DockerCompose" scheme="https://blog.laoda.de/tags/DockerCompose/"/>
+    
+    <category term="Docker部署" scheme="https://blog.laoda.de/tags/Docker%E9%83%A8%E7%BD%B2/"/>
     
     <category term="Bark" scheme="https://blog.laoda.de/tags/Bark/"/>
     
