@@ -168,6 +168,13 @@ document.addEventListener('DOMContentLoaded', panguInit)</script><div class=js-p
       path: window.location.pathname,
       comment: false,
     }, null))
+
+    const destroyWaline = () => {
+      waline.destroy()
+    }
+
+    btf.addGlobalFn('pjax', destroyWaline, 'destroyWaline')
+
   }
 
   const loadWaline = async () => {
